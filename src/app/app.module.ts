@@ -7,21 +7,43 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { PageLoginComponent } from './components/page-login/page-login.component';
 import { PageLogoutComponent } from './components/page-logout/page-logout.component';
 import { RegisterAddComponent } from './components/register-add/register-add.component';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 
 @NgModule({
+  
   declarations: [
     AppComponent,
     PageNotFoundComponent,
     PageLoginComponent,
     PageLogoutComponent,
-    RegisterAddComponent
+    RegisterAddComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  showNavbar: boolean | undefined; 
+
+  constructor(private router: Router) {}
+
+  ngOnInit() {
+    this.router.events.subscribe(event => {
+      if (this.router.url === '/login') {
+        // Estás en la página de login
+        this.showNavbar = false; // Suponiendo que showNavbar es una variable que controla la visibilidad del Navbar
+      } else {
+        // No estás en la página de login
+        this.showNavbar = true;
+      }
+    });
+  }
+}

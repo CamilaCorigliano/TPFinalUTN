@@ -1,18 +1,6 @@
-<!-- app.component.html -->
-<nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
-  <!-- Agregamos la clase "navbar-brand" para la imagen -->
-  <a class="navbar-brand" href="#">
-    <img src="assets/images/logo.jpeg" height="80">
-  </a>
 
-  <ul class="navbar-nav ml-auto">
-       <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/add']" routerLinkActive="active">Add Restaurant</a>
-       </li>
-       <li class="nav-item">
-          <a class="nav-link" [routerLink]="['/list']" routerLinkActive="active">List Restaurants</a>
-       </li>
-  </ul>
-</nav>
+<app-navbar *ngIf="showNavbar"></app-navbar>
 
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
+  
+
