@@ -10,6 +10,7 @@ import { RegisterAddComponent } from './components/register-add/register-add.com
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { RestaurantListComponent } from './components/restaurant/restaurant-list/restaurant-list.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     PageLoginComponent,
     PageLogoutComponent,
     RegisterAddComponent,
-    NavbarComponent
+    NavbarComponent,
+    RestaurantListComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +33,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  showNavbar: boolean | undefined; 
+  showNavbar!: boolean; 
 
   constructor(private router: Router) {}
 

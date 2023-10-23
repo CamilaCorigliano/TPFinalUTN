@@ -18,7 +18,7 @@ export class PageLoginComponent {
     console.log('Contraseña:', this.user.password);
     // Puedes agregar aquí la lógica para autenticar al usuario
     //te dirige a una pagina por medio de la ruta
-    this.router.navigate(['/logout']);
+    this.router.navigate(['/list-restaurants']);
   }
 
 }

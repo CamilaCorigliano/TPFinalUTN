@@ -1,0 +1,24 @@
+.custom-list-item {
+    border: 3px solid #ccc; /* Define el borde de los elementos li */
+    margin-bottom: 10px; /* Añade un espacio entre los elementos li */
+    border-radius: 15px; /* Agrega bordes redondeados */
+    background-color: #fff; /* Fondo blanco para los elementos li */
+    padding: 30px; /* Ajusta el espacio interno */
+    height: 100px; /* Ajusta la altura */
+    margin-right: 10px;
+
+}
+
+.custom-btn-ver {
+    margin-right: 50px; /* Ajusta el valor según sea necesario */
+}
+
+.custom-btn-corazon {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.star-yellow {
+    color: #FFD700; /* Código de color para amarillo */
+  }
