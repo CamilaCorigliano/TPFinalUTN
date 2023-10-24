@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RestaurantListComponent } from './components/restaurant/restaurant-list/restaurant-list.component';
+import { PageFiltersComponent } from './components/page-filters/page-filters.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { RestaurantListComponent } from './components/restaurant/restaurant-list
     PageLogoutComponent,
     RegisterAddComponent,
     NavbarComponent,
-    RestaurantListComponent
+    RestaurantListComponent,
+    PageFiltersComponent
   ],
   imports: [
     BrowserModule,

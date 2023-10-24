@@ -1,33 +1,8 @@
 <div class="container mt-5">
     <div class="row">
-        <!-- Contenido Principal (Filtros) -->
-        <div class="col-md-4">
-            <h3>Filtros</h3>
-
-            <!-- Filtro por Categoría (Checkboxes) -->
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="comida" id="categoriaComida">
-                <label class="form-check-label" for="categoriaComida">Comida</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="bebida" id="categoriaBebida">
-                <label class="form-check-label" for="categoriaBebida">Bebida</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="postre" id="categoriaPostre">
-                <label class="form-check-label" for="categoriaPostre">Postre</label>
-            </div>
-
-            <!-- Filtro por Nombre (con estilo de ancho personalizado) -->
-            <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre:</label>
-                <input type="text" class="form-control form-control-sm" id="nombre" name="nombre" style="width: 250px;">
-            </div>
-
-            <!-- Botón para aplicar filtros -->
-            <button type="button" class="btn btn-primary" onclick="aplicarFiltros()">Aplicar Filtros</button>
-        </div>
-
+    <div class="col-md-4">
+    <app-page-filters></app-page-filters>
+    </div>
         <!-- Listado de Restaurantes a la Derecha -->
         <div class="col-md-8">
             <div class="text-center p-4" style="background-color: #f0f0f0; border-radius: 10px;">
@@ -74,3 +49,4 @@
             </div>
         </div>
     </div>
+</div>
