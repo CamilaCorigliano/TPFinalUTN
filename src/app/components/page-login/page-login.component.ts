@@ -15,7 +15,7 @@ export class PageLoginComponent {
     password: new FormControl('')
   });
   
-  constructor(private router: Router, public authService: AuthService, private fb: FormBuilder) { }
+  constructor(private router: Router, public authService: AuthService) { }
 
   ngOnInit() {
   }
@@ -34,14 +34,4 @@ export class PageLoginComponent {
     this.router.navigate(['/list-restaurants']);
   }
 
-
-  studentForm = new FormGroup({
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
-    dni: new FormControl(''),
-    email: new FormControl(''),
-    address: new FormControl('')
-  });
-   
-  
 }
