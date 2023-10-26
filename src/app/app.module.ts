@@ -7,7 +7,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { PageLoginComponent } from './components/page-login/page-login.component';
 import { PageLogoutComponent } from './components/page-logout/page-logout.component';
 import { RegisterAddComponent } from './components/register-add/register-add.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RestaurantListComponent } from './components/restaurant/restaurant-list/restaurant-list.component';
@@ -29,7 +29,8 @@ import { PageFiltersComponent } from './components/page-filters/page-filters.com
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
