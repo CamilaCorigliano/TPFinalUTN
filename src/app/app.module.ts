@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
@@ -12,6 +13,7 @@ import { Router } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RestaurantListComponent } from './components/restaurant/restaurant-list/restaurant-list.component';
 import { PageFiltersComponent } from './components/page-filters/page-filters.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -31,6 +33,7 @@ import { PageFiltersComponent } from './components/page-filters/page-filters.com
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
