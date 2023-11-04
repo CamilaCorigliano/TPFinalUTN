@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { PageLoginComponent } from './components/page-login/page-login.component';
@@ -14,7 +15,7 @@ const appRoutes: Routes = [
 //  { path: 'view/:id', component: StudentViewComponent },
   { path: 'logout', component:  PageLogoutComponent}, 
   { path: 'list-restaurants', component:  RestaurantListComponent},  
-  { path: '', redirectTo: '/list-restaurants', pathMatch: 'full' },
+  { path: '', redirectTo: '/logout', pathMatch: 'full' },
   { path: '**', component : PageNotFoundComponent }
 ];
 
