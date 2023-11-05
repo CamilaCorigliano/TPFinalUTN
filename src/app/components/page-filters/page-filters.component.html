@@ -26,9 +26,12 @@
         <!-- Filtro por Nombre (con estilo de ancho personalizado) -->
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre:</label>
-            <input type="text" class="form-control form-control-sm" id="nombre" name="nombre" style="width: 250px;">
+            <input type="text" class="form-control form-control-sm" [formControl]="nameFilter" id="name" name="name" style="width: 250px;"
+                (input)="onInputChange($event)">
         </div>
+        
+          
 
         <!-- Botón para aplicar filtros -->
-        <button type="button" class="btn btn-primary" onclick="aplicarFiltros()">Aplicar Filtros</button>
+        <button type="button" class="btn btn-primary" (click)="applyFilters()">Aplicar Filtros</button>
     </div>
