@@ -7,15 +7,16 @@ import { PageLoginComponent } from './components/page-login/page-login.component
 import { PageLogoutComponent } from './components/page-logout/page-logout.component';
 import { RegisterAddComponent } from './components/register-add/register-add.component';
 import { RestaurantListComponent } from './components/restaurant/restaurant-list/restaurant-list.component';
+import { RestaurantViewComponent } from './components/restaurant/restaurant-view/restaurant-view.component';
 
 
 const appRoutes: Routes = [
   { path: 'login', component: PageLoginComponent },
   { path: 'register', component: RegisterAddComponent },
-//  { path: 'view/:id', component: StudentViewComponent },
+  { path: 'view-restaurant/:id', component: RestaurantViewComponent },
   { path: 'logout', component:  PageLogoutComponent}, 
   { path: 'list-restaurants', component:  RestaurantListComponent},  
-  { path: '', redirectTo: '/logout', pathMatch: 'full' },
+  { path: '', redirectTo: '/list-restaurants', pathMatch: 'full' },
   { path: '**', component : PageNotFoundComponent }
 ];
 
