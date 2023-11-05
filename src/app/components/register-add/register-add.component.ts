@@ -25,6 +25,9 @@ export class RegisterAddComponent {
     dni: new FormControl(''),
     idRol: new FormControl('')
   });
+  errordiv = " ";
+  errordiv2= " ";
+  errordiv3= " ";
   data : any[]=[];
   constructor(private apiservice:ApiService,private router:Router, private fb:FormBuilder){}
 
@@ -57,7 +60,7 @@ export class RegisterAddComponent {
   
  checkDni(newuser: User): Observable<boolean> {
     return new Observable((observer) => {
-      const isDniValid = !this.data.some((user) => user.dni === newuser.dni);
+      const isDniValid = !this.data.some((user) => user.dni == newuser.dni);
       observer.next(isDniValid);
       observer.complete();
     });
@@ -90,27 +93,22 @@ export class RegisterAddComponent {
     
     this.checkUser().subscribe((results:any) => {
       const [isUsernameValid, isDniValid, isEmailValid] = results;
-      console.log(results);
+      this.errordiv=" ";
+      this.errordiv2=" ";
+      this.errordiv3=" ";
       if (isUsernameValid && isDniValid && isEmailValid) {
         //API
         alert("Tu registro ha sido exitoso");
         this.router.navigate(['/login']);
       } else {
         if(isDniValid==false){
-          const divdni=document.getElementById("divdni");
-          let errordiv=document.createElement('div');
-          errordiv.innerText="El dni provisto ya se encuentra registrado";
-          divdni?.appendChild(errordiv);
-        }else if(isUsernameValid==false){
-          const divusername=document.getElementById("divusename");
-          let errordiv2=document.createElement('div');
-          errordiv2.innerText="El username provisto ya se encuentra registrado";
-          divusername?.appendChild(errordiv2);
-        }else if(isEmailValid==false){
-          const divemail=document.getElementById("divemail");
-          let errordiv3=document.createElement('div');
-          errordiv3.innerText="El email provisto ya se encuentra registrado";
-          divemail?.appendChild(errordiv3);
+          this.errordiv="El dni provisto ya se encuentra registrado";
+        }
+        if(isUsernameValid==false){
+          this.errordiv2="El username provisto ya se encuentra registrado";
+        }
+        if(isEmailValid==false){
+          this.errordiv3="El email provisto ya se encuentra registrado";
         }
       }
     });
