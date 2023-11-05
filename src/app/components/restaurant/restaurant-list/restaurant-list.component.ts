@@ -14,7 +14,17 @@ export class RestaurantListComponent  {
   constructor(private restaurantService: RestaurantService){}
 
   ngOnInit(): void {
-    this.restaurantService.getRestaurants().subscribe(
+    this.restaurantService.getApiRestaurants().subscribe(
+      data => {
+        this.restaurants = data;
+        this.restaurantService.setRestaurants(this.restaurants);
+      },
+      error => {
+        console.error(error);
+      }
+    );
+
+    this.restaurantService.getRestaurantsObservable().subscribe(
       data => {
         this.restaurants = data;
       },
@@ -23,6 +33,8 @@ export class RestaurantListComponent  {
       }
     );
   }
+
+  
 
   getStars(rating: number): number[] {
     const int = Math.floor(rating); // Parte entera del puntaje
