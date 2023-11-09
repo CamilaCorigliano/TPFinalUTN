@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Restaurant } from 'src/app/models/restaurant';
+import { RestaurantService } from 'src/app/services/restaurant.service/restaurant.service';
 
 @Component({
   selector: 'app-restaurant-view',
@@ -9,18 +10,25 @@ import { Restaurant } from 'src/app/models/restaurant';
 })
 export class RestaurantViewComponent {
 
-  restaurant = new Restaurant();
+  restaurant! : any;
 
-  constructor(private route: ActivatedRoute) {
-    this.restaurant.name = "Manolo Centro"; 
-    this.restaurant.address = "Santa Fe 1900";
+  constructor(private restaurantService: RestaurantService, private route: ActivatedRoute) {
+
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.params.subscribe(params => {
       const restaurantId = params['id']; 
-      console.log("id restaurant", restaurantId);
+      this.restaurantService.getApiRestaurantsById(restaurantId).subscribe(
+        data => {
+          this.restaurant = data;
+        },
+        error => {
+          console.error(error);
+        }
+      );
     });
+
   }
 
 }
