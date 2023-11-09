@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
@@ -12,6 +11,9 @@ import { Router } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RestaurantListComponent } from './components/restaurant/restaurant-list/restaurant-list.component';
 import { PageFiltersComponent } from './components/page-filters/page-filters.component';
+import { HttpClientModule } from '@angular/common/http';
+import { RestaurantService } from './services/restaurant.service/restaurant.service';
+import { NameFilterPipe } from './name-filter.pipe';
 
 
 @NgModule({
@@ -24,7 +26,8 @@ import { PageFiltersComponent } from './components/page-filters/page-filters.com
     RegisterAddComponent,
     NavbarComponent,
     RestaurantListComponent,
-    PageFiltersComponent
+    PageFiltersComponent,
+    NameFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,7 @@ import { PageFiltersComponent } from './components/page-filters/page-filters.com
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [RestaurantService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
