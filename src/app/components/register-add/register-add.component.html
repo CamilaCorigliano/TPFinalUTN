@@ -3,48 +3,55 @@
       <div class="col-md-6">
         <div class="card">
           <div class="card-body">
-            <form [formGroup]="registerForm" (submit)="onSubmit()">
+            <form  [formGroup]="registerForm" (submit)="onSubmit()">
               <div class="mb-3">
                 <label for="firstName" class="form-label">Nombre</label>
-              <input type="text" class="form-control" formControlName="firstName" required>
+              <input type="text" class="form-control" formControlName="firstName" [class.is-valid]="invalidName">
+              <small *ngIf="invalidName" style="color: crimson;">Ingrese un Nombre con minimo de 5 letras</small>
               </div>
               <div class="mb-3">
                 <label for="lastName" class="form-label">Apellido</label>
-               <input type="text" class="form-control" formControlName="lastName" required>
+               <input type="text" class="form-control" formControlName="lastName" [class.is-valid]="invalidLastname">
+               <small *ngIf="invalidLastname" style="color: crimson;">Ingrese un Apellido con minimo de 5 letras</small>
               </div>
               <div class="mb-3">
                 <label for="lastName" class="form-label">DNI</label>
-               <input type="number" class="form-control" formControlName="dni" required>
-               <div style="color: crimson;">{{errordiv}}</div>;
+               <input type="text" class="form-control" formControlName="dni" [class.is-valid]="invalidDni">
+               <small *ngIf="invalidDni" style="color:crimson">Ingrese un DNI valido</small>
+               <small style="color: crimson;">{{errordiv}}</small>
               </div>
               <div class="mb-3">
                 <label for="email" class="form-label">Correo Electrónico</label>
-               <input type="email" class="form-control" formControlName="email" required>
-               <div style="color: crimson;">{{errordiv3}}</div>;
+               <input type="email" class="form-control" formControlName="email" [class.is-valid]="invalidEmail">
+               <small *ngIf="invalidEmail" style="color: crimson;">Ingrese un Correo Electronico valido</small>
+               <small style="color: crimson;">{{errordiv3}}</small>
               </div>
               <div class="mb-3">
                 <label for="username" class="form-label">Nombre de Usuario</label>
-              <input type="text" class="form-control" formControlName="userName" required>
-              <div style="color: crimson;">{{errordiv2}}</div>;
+              <input type="text" class="form-control" formControlName="userName"  [class.is-valid]="invalidUsername">
+              <small *ngIf="invalidUsername" style="color: crimson;">Ingrese un Nombre de Usuario con un minimo de 5 caracteres</small>
+              <small style="color: crimson;">{{errordiv2}}</small>
               </div>
               <div class="mb-3">
                 <label for="password" class="form-label">Contraseña</label>
-               <input type="password" class="form-control" formControlName="password" required>
+               <input type="password" class="form-control" formControlName="password" [class.is-valid]="invalidPassword">
+               <small *ngIf="invalidPassword" style="color: crimson;">Ingrese una Contraseña con un minimo de 6 caracteres</small>
               </div>
               <div class="mb-3">
                 <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
-               <input type="password" class="form-control" id="confirmPassword"  name="confirmPassword" required>
+               <input type="password" class="form-control" formControlName="confirmPassword" required>
+               <small style="color: crimson;">{{errordiv4}}</small>
               </div>
               <div class="mb-3">
                 <label class="form-label">¿Eres encargado?</label>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" formControlName="idRol" value="encargado">
+                  <input class="form-check-input" type="radio" formControlName="role" value="res_admin">
                   <label class="form-check-label" for="encargadoSi">
                     Sí
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" formControlName="idRol" value="Usuario">
+                  <input class="form-check-input" type="radio" formControlName="role" value="client">
                   <label class="form-check-label" for="encargadoNo">
                     No
                   </label>
