@@ -14,6 +14,7 @@ import { PageFiltersComponent } from './components/page-filters/page-filters.com
 import { HttpClientModule } from '@angular/common/http';
 import { RestaurantService } from './services/restaurant.service/restaurant.service';
 import { NameFilterPipe } from './name-filter.pipe';
+import { RestaurantViewComponent } from './components/restaurant/restaurant-view/restaurant-view.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { NameFilterPipe } from './name-filter.pipe';
     NavbarComponent,
     RestaurantListComponent,
     PageFiltersComponent,
-    NameFilterPipe
+    NameFilterPipe,
+    RestaurantViewComponent
   ],
   imports: [
     BrowserModule,

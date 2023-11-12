@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, Subject  } from 'rxjs';
 
 @Injectable({
@@ -7,7 +7,7 @@ import { Observable, Subject  } from 'rxjs';
 })
 export class RestaurantService {
   
-  private apiUrl = 'http://3.21.41.36:3000/restaurants';
+  private apiUrl = `http://3.21.41.36:3000/restaurants`;
   private originalRestaurants: any[] = [];
   restaurants: any[] = [];
   
@@ -15,6 +15,12 @@ export class RestaurantService {
 
   getApiRestaurants(): Observable<any[]>{
     return this.http.get<any[]>(this.apiUrl);
+  }
+
+  getApiRestaurantsById(id: string): Observable<any>{
+    console.log("Id del restaurant", id);
+
+    return this.http.get<any>(`${this.apiUrl}/id/${id}`);
   }
 
   getRestaurants() {
