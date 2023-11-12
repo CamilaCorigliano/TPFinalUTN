@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { RestaurantService } from 'src/app/services/restaurant.service/restaurant.service';
 
@@ -12,15 +12,15 @@ export class PageFiltersComponent {
   
   nameFilter = new FormControl('');
   searchTerm: string = '';
+  selectedCategories: string[] = [];
+  @Input() categories: string[] = ['parrilla', 'sushi', 'vegano', 'pasta', 'italiana', 'china', 'rapida', 'pescado', 'cafeteria', 'pizza', 'hamburguesas', 'bar', 'vinoteca'];
 
   constructor(private restaurantService: RestaurantService) {}
 
   applyFilters() {
-    if (this.searchTerm !== '') {
-      // Filtra los restaurantes por nombre
-      this.restaurantService.applyFilters(this.searchTerm);
+    if (this.searchTerm !== '' || this.selectedCategories.length > 0) {
+      this.restaurantService.applyFilters(this.searchTerm, this.selectedCategories);
     } else {
-      // Si searchTerm está vacío, restaura la lista original
       this.restaurantService.restoreOriginalList();
     }
   }
@@ -31,6 +31,15 @@ export class PageFiltersComponent {
       this.searchTerm = inputElement.value;
     } else {
       this.searchTerm = '';
+    }
+  }
+
+  onCategoryChange(category: string): void {
+    const index = this.selectedCategories.indexOf(category);
+    if (index === -1) {
+      this.selectedCategories.push(category);
+    } else {
+      this.selectedCategories.splice(index, 1);
     }
   }
   
