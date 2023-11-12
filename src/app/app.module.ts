@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RestaurantService } from './services/restaurant.service/restaurant.service';
 import { NameFilterPipe } from './name-filter.pipe';
 import { RestaurantViewComponent } from './components/restaurant/restaurant-view/restaurant-view.component';
+import { PageReservationComponent } from './components/page-reservation/page-reservation.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { RestaurantViewComponent } from './components/restaurant/restaurant-view
     RestaurantListComponent,
     PageFiltersComponent,
     NameFilterPipe,
-    RestaurantViewComponent
+    RestaurantViewComponent,
+    PageReservationComponent
   ],
   imports: [
     BrowserModule,
