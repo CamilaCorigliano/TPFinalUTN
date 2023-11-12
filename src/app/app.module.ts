@@ -31,7 +31,7 @@ import { PageReservationComponent } from './components/page-reservation/page-res
     PageFiltersComponent,
     NameFilterPipe,
     RestaurantViewComponent,
-    PageReservationComponent
+    PageReservationComponent,
   ],
   imports: [
     BrowserModule,

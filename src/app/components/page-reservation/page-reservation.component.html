@@ -3,6 +3,13 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">Reserva</div>
+                <div class="card-body">
+                    <form [formGroup]="reservationForm" (submit)="onSubmit()">
+                        <div class="mb-3">
+                            <label for="date" class="form-label">Date</label>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
