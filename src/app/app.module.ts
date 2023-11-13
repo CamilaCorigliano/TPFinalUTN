@@ -8,12 +8,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
 
-
 // Importaciones de Angular Material
 import { MatDatepickerModule } from '@angular/material/datepicker';
-// import { MatInputModule } from '@angular/material/input';
-// import { MatNativeDateModule } from '@angular/material/core';
-
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select'
+import {MatButtonModule} from '@angular/material/button';
 
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { PageLoginComponent } from './components/page-login/page-login.component';
@@ -40,7 +40,6 @@ import { PageReservationComponent } from './components/page-reservation/page-res
     NameFilterPipe,
     RestaurantViewComponent,
     PageReservationComponent,
-    MatDatepickerModule
   ],
   imports: [
     BrowserModule,
@@ -49,18 +48,22 @@ import { PageReservationComponent } from './components/page-reservation/page-res
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule,
+    MatButtonModule
   ],
   providers: [RestaurantService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {
-  showNavbar!: boolean; 
+  showNavbar!: boolean;
 
   constructor(private router: Router) {}
 
   ngOnInit() {
-    this.router.events.subscribe(event => {
+    this.router.events.subscribe((event) => {
       if (this.router.url === '/login') {
         // Estás en la página de login
         this.showNavbar = false; // Suponiendo que showNavbar es una variable que controla la visibilidad del Navbar

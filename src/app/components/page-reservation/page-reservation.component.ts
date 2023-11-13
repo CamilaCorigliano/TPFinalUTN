@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
-
-
 
 @Component({
   selector: 'app-page-reservation',
@@ -11,20 +8,25 @@ import { ReactiveFormsModule } from '@angular/forms';
   styleUrls: ['./page-reservation.component.css']
 })
 export class PageReservationComponent {
-  constructor(private route: ActivatedRoute){}
+
   reservationForm = new FormGroup({
     date: new FormControl(''),
     res_size: new FormControl(''),
-    comment: new FormControl('')
-  })
-ngOnInit(){
-  this.route.params.subscribe(params =>{
-    const restaurantId = params['id'];
-    console.log(restaurantId)
-  })
-}
-onSubmit() {
+    comment: new FormControl(''),
+    time: new FormControl(''),
+  });
 
-}
+  constructor(private route: ActivatedRoute) {}
 
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      const restaurantId = params['id'];
+      console.log(restaurantId);
+    });
+  }
+
+  onSubmit() {
+    // Implement your form submission logic here
+    console.log(this.reservationForm.value);
+  }
 }
