@@ -10,7 +10,7 @@ import { RouterModule } from '@angular/router';
 
 
 // Importaciones de Angular Material
-// import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 // import { MatInputModule } from '@angular/material/input';
 // import { MatNativeDateModule } from '@angular/material/core';
 
@@ -40,6 +40,7 @@ import { PageReservationComponent } from './components/page-reservation/page-res
     NameFilterPipe,
     RestaurantViewComponent,
     PageReservationComponent,
+    MatDatepickerModule
   ],
   imports: [
     BrowserModule,
