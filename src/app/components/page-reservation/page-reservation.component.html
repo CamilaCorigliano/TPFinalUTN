@@ -6,7 +6,8 @@
           <div class="card-body">
             <form [formGroup]="reservationForm" (submit)="onSubmit()">
               <div class="mb-3">
-                <label for="date" class="form-label">Date</label>
+                <!-- Sección de Fecha -->
+                <label for="date" class="form-label">Fecha</label>
                 <mat-form-field class="mb-3">
                   <mat-label>Elige la fecha</mat-label>
                   <input matInput [matDatepicker]="picker" formControlName="date">
@@ -14,32 +15,45 @@
                   <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
-                
+  
+                <!-- Sección de Hora -->
                 <div class="mb-3">
-                    <label for="time">hora</label>
-                  <!-- Dropdown para elegir entre Mediodía y Noche -->
+                  <!-- Comentario: Dropdown para elegir entre Mediodía y Noche -->
+                  <label for="time">Hora</label>
                   <mat-form-field class="mb-3">
                     <mat-label>Selecciona</mat-label>
-                    <mat-select formControlName="selectedOption">
+                    <mat-select formControlName="time">
                       <mat-option value="mediodia">Mediodía</mat-option>
                       <mat-option value="noche">Noche</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
+  
+                <!-- Sección de Cantidad de Personas -->
                 <div class="mb-3">
-                    <label for="size">Cantidad <br>Personas</label>
-                    <mat-form-field class="mb-3">
+                  <!-- Comentario: Dropdown para seleccionar la cantidad de personas -->
+                  <label for="size">Cantidad de Personas</label>
+                  <mat-form-field class="mb-3">
                     <mat-label>Selecciona</mat-label>
-                    <mat-select formControlName="selectedSize">
-                        <mat-option value="2">2</mat-option>
-                        <mat-option value="3">3</mat-option>
-                        <mat-option value="4">4</mat-option>
-                        <mat-option value="5">5</mat-option>
-                        <mat-option value="6">6</mat-option>
-                        <mat-option value="7">7</mat-option>
-                        <mat-option value="8">8</mat-option>
+                    <mat-select formControlName="res_size">
+                      <mat-option value="2">2</mat-option>
+                      <mat-option value="3">3</mat-option>
+                      <mat-option value="4">4</mat-option>
+                      <mat-option value="5">5</mat-option>
+                      <mat-option value="6">6</mat-option>
+                      <mat-option value="7">7</mat-option>
+                      <mat-option value="8">8</mat-option>
                     </mat-select>
-                </mat-form-field>
+                  </mat-form-field>
+                </div>
+                <div class="mb-3">
+                  <label for="comment">Comentario</label>
+                  <div class="mb-5">
+                    <mat-form-field class="mb-3">
+                        <mat-label>Comentario</mat-label>
+                        <textarea matInput formControlName="comment" rows="3"></textarea>
+                      </mat-form-field>
+                  </div>
                 </div>
               </div>
               <button type="submit" mat-raised-button color="primary">Submit</button>

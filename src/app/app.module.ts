@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatSelectModule} from '@angular/material/select'
 import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { PageLoginComponent } from './components/page-login/page-login.component';
@@ -52,7 +53,8 @@ import { PageReservationComponent } from './components/page-reservation/page-res
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    MatButtonModule
+    MatButtonModule,
+    MatFormFieldModule
   ],
   providers: [RestaurantService],
   bootstrap: [AppComponent],
