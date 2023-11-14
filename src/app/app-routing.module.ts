@@ -8,16 +8,18 @@ import { PageLogoutComponent } from './components/page-logout/page-logout.compon
 import { RegisterAddComponent } from './components/register-add/register-add.component';
 import { RestaurantListComponent } from './components/restaurant/restaurant-list/restaurant-list.component';
 import { RestaurantViewComponent } from './components/restaurant/restaurant-view/restaurant-view.component';
-
+import { PageReservationComponent } from 'src/app/components/page-reservation/page-reservation.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: PageLoginComponent },
   { path: 'register', component: RegisterAddComponent },
   { path: 'view-restaurant/:id', component: RestaurantViewComponent },
+  { path: 'reserve/:id', component: PageReservationComponent},
   { path: 'logout', component:  PageLogoutComponent}, 
   { path: 'list-restaurants', component:  RestaurantListComponent},  
   { path: '', redirectTo: '/list-restaurants', pathMatch: 'full' },
-  { path: '**', component : PageNotFoundComponent }
+  { path: '**', component : PageNotFoundComponent },
+ 
 ];
 
 @NgModule({

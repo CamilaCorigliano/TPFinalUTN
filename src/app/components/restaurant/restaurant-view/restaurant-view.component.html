@@ -1,11 +1,11 @@
-<div class="container mt-5">
+<div class="container mt-5" *ngIf="restaurant">
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">{{ restaurant.name }}</h5>
             <p class="card-text">{{ restaurant.adress }}</p>
-            <button class="btn btn-primary btn-lg">Hacer una Reserva</button>
+            <a [routerLink]="['/reserve', restaurant.id]" class="btn btn-primary btn-lg">Hacer una Reserva</a>
           </div>
         </div>
       </div>
