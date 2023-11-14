@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { ReservationService } from 'src/app/services/reservation.service/reservation.service';
 
 @Component({
   selector: 'app-page-reservation',
@@ -8,25 +9,53 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./page-reservation.component.css']
 })
 export class PageReservationComponent {
+  private restaurantId: string;
 
   reservationForm = new FormGroup({
-    date: new FormControl(''),
-    res_size: new FormControl(''),
+    date: new FormControl('', Validators.required),
+    res_size: new FormControl('',Validators.required),
     comment: new FormControl(''),
-    time: new FormControl(''),
+    time: new FormControl('',Validators.required),
   });
 
-  constructor(private route: ActivatedRoute) {}
+  userId = "774a3a7e-8e0c-4761-b89a-3e0429d34533";
+
+  constructor(private route: ActivatedRoute, private reservationService: ReservationService) {
+    this.restaurantId = '';
+  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      const restaurantId = params['id'];
-      console.log(restaurantId);
+      this.restaurantId = params['id'];
+      console.log(this.restaurantId);
     });
   }
-
   onSubmit() {
-    // Implement your form submission logic here
-    console.log(this.reservationForm.value);
+    const { date, res_size, comment, time } = this.reservationForm.value;
+  
+    if (date !== null && date !== undefined) {
+      let selectedDate: string;
+  
+      if (time !== null && time !== undefined) {
+        const dateObject = new Date(date);
+  
+        if (time === 'noche') {
+          dateObject.setHours(20);
+        }
+  
+        selectedDate = dateObject.toISOString();
+      } else {
+        selectedDate = new Date(date).toISOString();
+      }
+  
+      this.reservationService.createReservation(this.userId, this.restaurantId, Number(res_size), selectedDate, comment)
+        .subscribe(
+          response => console.log('Respuesta de la API:', response),
+          error => console.error('Error de la API:', error)
+        );
+    } else {
+      console.error('El valor de "date" es nulo o indefinido.');
+    }
   }
+  
 }
