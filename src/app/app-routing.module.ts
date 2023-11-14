@@ -9,12 +9,14 @@ import { RegisterAddComponent } from './components/register-add/register-add.com
 import { RestaurantListComponent } from './components/restaurant/restaurant-list/restaurant-list.component';
 import { RestaurantViewComponent } from './components/restaurant/restaurant-view/restaurant-view.component';
 import { PageReservationComponent } from 'src/app/components/page-reservation/page-reservation.component';
+import { PageReservationViewComponent } from './components/page-reservation-view/page-reservation-view.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: PageLoginComponent },
   { path: 'register', component: RegisterAddComponent },
   { path: 'view-restaurant/:id', component: RestaurantViewComponent },
   { path: 'reserve/:id', component: PageReservationComponent},
+  { path: 'view-reservation/:id', component: PageReservationViewComponent},
   { path: 'logout', component:  PageLogoutComponent}, 
   { path: 'list-restaurants', component:  RestaurantListComponent},  
   { path: '', redirectTo: '/list-restaurants', pathMatch: 'full' },
@@ -26,7 +28,7 @@ const appRoutes: Routes = [
   imports: [
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: false } // <-- debugging purposes only
+      { enableTracing: false } 
     )
   ],
   exports: [

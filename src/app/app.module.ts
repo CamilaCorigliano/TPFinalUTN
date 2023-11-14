@@ -27,6 +27,7 @@ import { RestaurantService } from './services/restaurant.service/restaurant.serv
 import { NameFilterPipe } from './name-filter.pipe';
 import { RestaurantViewComponent } from './components/restaurant/restaurant-view/restaurant-view.component';
 import { PageReservationComponent } from './components/page-reservation/page-reservation.component';
+import { PageReservationViewComponent } from './components/page-reservation-view/page-reservation-view.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { PageReservationComponent } from './components/page-reservation/page-res
     NameFilterPipe,
     RestaurantViewComponent,
     PageReservationComponent,
+    PageReservationViewComponent,
   ],
   imports: [
     BrowserModule,
