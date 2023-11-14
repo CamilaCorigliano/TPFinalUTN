@@ -4,7 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { PageLoginComponent } from './components/page-login/page-login.component';
-import { PageLogoutComponent } from './components/page-logout/page-logout.component';
 import { RegisterAddComponent } from './components/register-add/register-add.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -22,7 +21,6 @@ import { NameFilterPipe } from './name-filter.pipe';
     AppComponent,
     PageNotFoundComponent,
     PageLoginComponent,
-    PageLogoutComponent,
     RegisterAddComponent,
     NavbarComponent,
     RestaurantListComponent,
