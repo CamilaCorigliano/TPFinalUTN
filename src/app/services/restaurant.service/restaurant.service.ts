@@ -19,7 +19,6 @@ export class RestaurantService {
   }
 
   getApiRestaurantsById(id: string): Observable<any> {
-    console.log("Id del restaurant", id);
     return this.http.get<any>(`${this.apiUrl}/id/${id}`);
   }
 
@@ -89,4 +88,15 @@ private hasCategory(restaurant: any, category: string): boolean {
     this.restaurants = this.originalRestaurants.slice();
     this.restaurantsSubject.next(this.restaurants);
   }
+
+  createRestaurant(user_id: string, name: string | null | undefined, adress: string | null | undefined): Observable<any> {
+    const data = {
+      manager_id: user_id,
+      name: name,
+      adress: adress
+    };
+
+    return this.http.post<any>(`${this.apiUrl}`, data);
+  }
+
 }

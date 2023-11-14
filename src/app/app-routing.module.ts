@@ -9,6 +9,8 @@ import { RegisterAddComponent } from './components/register-add/register-add.com
 import { RestaurantListComponent } from './components/restaurant/restaurant-list/restaurant-list.component';
 import { RestaurantViewComponent } from './components/restaurant/restaurant-view/restaurant-view.component';
 import { PageReservationComponent } from 'src/app/components/page-reservation/page-reservation.component';
+import { PageMenuAdminComponent } from './components/page-menu-admin/page-menu-admin.component';
+import { RestaurantAddComponent } from './components/restaurant/restaurant-add/restaurant-add.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: PageLoginComponent },
@@ -16,7 +18,9 @@ const appRoutes: Routes = [
   { path: 'view-restaurant/:id', component: RestaurantViewComponent },
   { path: 'reserve/:id', component: PageReservationComponent},
   { path: 'logout', component:  PageLogoutComponent}, 
-  { path: 'list-restaurants', component:  RestaurantListComponent},  
+  { path: 'list-restaurants', component:  RestaurantListComponent},
+  { path: 'menu-admin', component:  PageMenuAdminComponent},
+  { path: 'add-restaurant', component:  RestaurantAddComponent},    
   { path: '', redirectTo: '/list-restaurants', pathMatch: 'full' },
   { path: '**', component : PageNotFoundComponent },
  

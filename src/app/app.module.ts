@@ -27,6 +27,8 @@ import { RestaurantService } from './services/restaurant.service/restaurant.serv
 import { NameFilterPipe } from './name-filter.pipe';
 import { RestaurantViewComponent } from './components/restaurant/restaurant-view/restaurant-view.component';
 import { PageReservationComponent } from './components/page-reservation/page-reservation.component';
+import { PageMenuAdminComponent } from './components/page-menu-admin/page-menu-admin.component';
+import { RestaurantAddComponent } from './components/restaurant/restaurant-add/restaurant-add.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,8 @@ import { PageReservationComponent } from './components/page-reservation/page-res
     NameFilterPipe,
     RestaurantViewComponent,
     PageReservationComponent,
+    PageMenuAdminComponent,
+    RestaurantAddComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,10 +71,9 @@ export class AppModule {
   ngOnInit() {
     this.router.events.subscribe((event) => {
       if (this.router.url === '/login') {
-        // Estás en la página de login
-        this.showNavbar = false; // Suponiendo que showNavbar es una variable que controla la visibilidad del Navbar
+        this.showNavbar = false; 
       } else {
-        // No estás en la página de login
+
         this.showNavbar = true;
       }
     });
