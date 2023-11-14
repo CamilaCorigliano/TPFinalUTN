@@ -42,8 +42,8 @@ export class PageLoginComponent {
  getUserID(){
      this.apiservice.getUsersEmail(this.user.email,this.user.password).subscribe((data:any)=>{
       if(data.message=="Login successful"){
-        this.user.idUser=data.id;
-        this.apiservice.userid(data.id);
+        this.user=data.user;
+        this.apiservice.userid(data.user);
       }else{
         if(data.message==500){
           this.msg.push("El email no esta registrado");
@@ -57,8 +57,6 @@ export class PageLoginComponent {
   onSubmit() {
     this.user.email = this.loginForm.get('email')?.value!;
     this.user.password = this.loginForm.get('password')?.value!;
-    console.log('email:', this.user.email);
-    console.log('Contraseña:', this.user.password);
     this.getUserID();
     this.errordiv=" ";
     this.errordiv2=" ";

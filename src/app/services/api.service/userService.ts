@@ -9,12 +9,12 @@ import { result } from 'src/app/models/result.interface';
   providedIn: 'root'
 })
 export class userService {
-  private user = new User;
+  user = new User;
   private apiUrl="http://3.21.41.36:3000";
   constructor(private http:HttpClient) { }
   
-  public userid(id:string){
-    this.user.idUser=id;
+  public userid(user:User){
+    this.user=user;
   }
 
   public getUsers(url:string):Observable<any>{
