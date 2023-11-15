@@ -46,6 +46,9 @@ export class ReservationService {
     return this.http.get<any>(`${this.apiUrl}/get/${reservation_id}`);
 
   }
+  getByUser(user_id:string): Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/get/user/${user_id}`);
+  }
 
 
 
