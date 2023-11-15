@@ -138,8 +138,10 @@ export class RegisterAddComponent {
       this.errordiv3=" ";
       this.errordiv4=" ";
       if (isUsernameValid && isDniValid && isEmailValid && confirmPassword) {
-        this.apiservice.addUser(user);
-        alert("Tu registro ha sido exitoso");
+        this.apiservice.addUser(user).subscribe((data)=>{
+          console.log(data);
+        });
+        
         this.router.navigate(['/login']);
       } else {
         if(isDniValid==false){

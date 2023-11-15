@@ -31,7 +31,8 @@ export class userService {
   
 
   public addUser(user:any):Observable<any>{
-    return this.http.post<result>(this.apiUrl+"/users",user);
+    const result =this.http.post<result>(this.apiUrl+"/users",user)
+    return result;
   }
 
 
