@@ -18,7 +18,6 @@ const appRoutes: Routes = [
   { path: 'list-restaurants', component:  RestaurantListComponent},  
   { path: 'view-restaurant/:id', component: RestaurantViewComponent },
   { path: 'reserve/:id', component: PageReservationComponent},
-  { path: 'logout', component:  PageLogoutComponent}, 
   { path: 'menu-admin', component:  PageMenuAdminComponent},
   { path: 'add-restaurant', component:  RestaurantAddComponent},
   { path: 'add-categories', component:  CategoryAddComponent},     
