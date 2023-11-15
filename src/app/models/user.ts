@@ -1,10 +1,12 @@
 export class User {
-    idUser! : number
+    idUser : string="@";
     firstName!: string;
     lastName!: string;
     userName!: string;
     password!: string;
     email! :  string;
-    dni! : string; //puede ser number
+    favorites!: any[];
+    reservations!: any[];
+    dni! : string; 
     role!: string;
 }
