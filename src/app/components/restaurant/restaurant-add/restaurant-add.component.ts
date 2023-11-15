@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RestaurantService } from 'src/app/services/restaurant.service/restaurant.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { RestaurantService } from 'src/app/services/restaurant.service/restauran
 export class RestaurantAddComponent {
 
 
-  constructor(private route: ActivatedRoute, private restaurantService: RestaurantService) {}
+  constructor(private router: Router, private restaurantService: RestaurantService) {}
 
   addRestaurantForm = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -26,7 +26,7 @@ export class RestaurantAddComponent {
 
     this.restaurantService.createRestaurant(this.userId, name, adress)
         .subscribe(
-          response => console.log('Respuesta de la API:', response),
+          response => this.router.navigate(['/list-restaurants']),
           error => console.error('Error de la API:', error)
         );
 

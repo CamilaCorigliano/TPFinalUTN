@@ -11,6 +11,7 @@ import { RestaurantViewComponent } from './components/restaurant/restaurant-view
 import { PageReservationComponent } from 'src/app/components/page-reservation/page-reservation.component';
 import { PageMenuAdminComponent } from './components/page-menu-admin/page-menu-admin.component';
 import { RestaurantAddComponent } from './components/restaurant/restaurant-add/restaurant-add.component';
+import { CategoryAddComponent } from './components/categories/category-add/category-add.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: PageLoginComponent },
@@ -20,7 +21,8 @@ const appRoutes: Routes = [
   { path: 'logout', component:  PageLogoutComponent}, 
   { path: 'list-restaurants', component:  RestaurantListComponent},
   { path: 'menu-admin', component:  PageMenuAdminComponent},
-  { path: 'add-restaurant', component:  RestaurantAddComponent},    
+  { path: 'add-restaurant', component:  RestaurantAddComponent},
+  { path: 'add-categories', component:  CategoryAddComponent},     
   { path: '', redirectTo: '/list-restaurants', pathMatch: 'full' },
   { path: '**', component : PageNotFoundComponent },
  
