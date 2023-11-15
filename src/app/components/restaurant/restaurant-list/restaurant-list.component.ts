@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ApiService } from 'src/app/services/apiservice';
 import { RestaurantService } from 'src/app/services/restaurant.service/restaurant.service';
 
 
@@ -11,7 +12,7 @@ export class RestaurantListComponent  {
 
   restaurants!: any[];
 
-  constructor(private restaurantService: RestaurantService){}
+  constructor(private restaurantService: RestaurantService, private apiService: ApiService){}
 
   ngOnInit(): void {
     this.restaurantService.getApiRestaurants().subscribe(
@@ -49,5 +50,8 @@ export class RestaurantListComponent  {
     }
 
     return stars;
+  }
+  addFav(userId: string, restaurantId: string){
+    this.apiService.addFavorite(userId, restaurantId);
   }
 }

@@ -21,7 +21,12 @@ export class ApiService {
     return this.http.post<result>(this.apiUrl+"/users",user);
   }
 
-
+  public addFavorite(userId:string, restaurantId: string):Observable<any>{
+    return this.http.post<result>(this.apiUrl+"/users/favorites",{
+      "user_id": userId,
+      "restaurant_id": restaurantId
+    })
+  }
   
 
 
