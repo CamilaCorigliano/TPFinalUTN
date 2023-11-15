@@ -1,0 +1,46 @@
+<div class="container mt-5" *ngIf="restaurant">
+    <!-- Contenido del restaurante -->
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-body">
+            <h1 class="card-title">{{ restaurant.name }}</h1>
+            <p class="card-text">{{ restaurant.adress }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row justify-content-center mt-4">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-body">
+            <form [formGroup]="tableForm" (submit)="onSubmit()">
+              <div class="mb-3">
+                <label for="table">Nro Mesa:</label>
+                <input type="number" class="form-control" id="category" formControlName="tableNumber" required>
+              </div>
+              <div class="mb-3">
+                <label for="size">Capacidad:</label>
+                <mat-form-field class="mb-3">
+                  <mat-label>Selecciona</mat-label>
+                  <mat-select formControlName="capacity">
+                    <mat-option value="1">1</mat-option>
+                    <mat-option value="2">2</mat-option>
+                    <mat-option value="3">3</mat-option>
+                    <mat-option value="4">4</mat-option>
+                    <mat-option value="5">5</mat-option>
+                    <mat-option value="6">6</mat-option>
+                    <mat-option value="7">7</mat-option>
+                    <mat-option value="8">8</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <button type="submit" mat-raised-button color="primary">Crear</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
