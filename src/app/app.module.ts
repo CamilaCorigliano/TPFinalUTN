@@ -18,7 +18,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { PageLoginComponent } from './components/page-login/page-login.component';
-import { PageLogoutComponent } from './components/page-logout/page-logout.component';
 import { RegisterAddComponent } from './components/register-add/register-add.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RestaurantListComponent } from './components/restaurant/restaurant-list/restaurant-list.component';
@@ -36,7 +35,6 @@ import { CategoryAddComponent } from './components/categories/category-add/categ
     AppComponent,
     PageNotFoundComponent,
     PageLoginComponent,
-    PageLogoutComponent,
     RegisterAddComponent,
     NavbarComponent,
     RestaurantListComponent,

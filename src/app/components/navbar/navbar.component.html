@@ -29,7 +29,7 @@
         
             <ng-template #loggedIn>
               <li class="nav-item me-2">
-                <a class="nav-link" [routerLink]="['/logout']" routerLinkActive="active">Log out</a>
+                <a class="nav-link" [routerLink]="['']" routerLinkActive="active" (click)="authService.logout">Log out</a>
               </li>
             </ng-template>
           </ul>
