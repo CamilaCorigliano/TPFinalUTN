@@ -19,5 +19,6 @@ export class NavbarComponent {
       console.log('El usuario no está autenticado.');
     }
   }
+
 }
 

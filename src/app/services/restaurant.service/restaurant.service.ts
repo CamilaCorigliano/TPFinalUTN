@@ -1,20 +1,25 @@
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject  } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RestaurantService {
-  
-  private apiUrl = 'http://3.21.41.36:3000/restaurants';
+
+  private apiUrl = `http://3.21.41.36:3000/restaurants`;
   private originalRestaurants: any[] = [];
   restaurants: any[] = [];
-  
+
   constructor(private http: HttpClient) { }
 
-  getApiRestaurants(): Observable<any[]>{
+  getApiRestaurants(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
+  }
+
+  getApiRestaurantsById(id: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/id/${id}`);
   }
 
   getRestaurants() {
@@ -22,9 +27,9 @@ export class RestaurantService {
   }
 
   setRestaurants(data: any[]) {
-    this.originalRestaurants = data;  // Asegúrate de inicializar originalRestaurants
-    this.restaurants = data;  // También asigna data a restaurants
-    this.restaurantsSubject.next(this.restaurants); // Emitir los cambios
+    this.originalRestaurants = data;
+    this.restaurants = data;
+    this.restaurantsSubject.next(this.restaurants);
   }
 
   private restaurantsSubject = new Subject<any[]>();
@@ -33,20 +38,65 @@ export class RestaurantService {
     return this.restaurantsSubject.asObservable();
   }
 
-  applyFilters(searchTerm: string) {
+  applyFilters(searchTerm: string, selectedCategories: string[]) {
+    const lastSelectedCategory = selectedCategories[selectedCategories.length - 1] || '';
 
-    this.restaurants = this.originalRestaurants.filter(restaurant =>
-      restaurant.name.includes(searchTerm)
+    // Verificar si hay al menos un restaurante con la última categoría seleccionada
+    const hasRestaurantWithLastCategory = this.originalRestaurants.some(restaurant =>
+        this.hasCategory(restaurant, lastSelectedCategory)
     );
 
-    this.restaurantsSubject.next(this.restaurants); // Emitir los cambios
-  }
+    if (!hasRestaurantWithLastCategory) {
+        this.clearList();
+        return;
+    }
 
-  restoreOriginalList() {
-    this.restaurants = this.originalRestaurants.slice();
-    this.restaurantsSubject.next(this.restaurants); // Emitir los cambios
+    const filteredRestaurants = this.originalRestaurants.filter(restaurant =>
+        this.matchesSearchTerm(restaurant, searchTerm) &&
+        this.hasAnySelectedCategory(restaurant, selectedCategories)
+    );
+
+    if (filteredRestaurants.length > 0) {
+        this.restaurants = filteredRestaurants;
+        this.restaurantsSubject.next(this.restaurants);
+    }
+}
+
+private hasCategory(restaurant: any, category: string): boolean {
+
+    return restaurant.categories.includes(category);
+}
+
+  
+  clearList() {
+    this.restaurants = [];
+    this.restaurantsSubject.next(this.restaurants);
   }
   
+  matchesSearchTerm(restaurant: any, searchTerm: string): boolean {
+    return restaurant.name.toLowerCase().includes(searchTerm.toLowerCase());
+  }
+  
+  hasAnySelectedCategory(restaurant: any, selectedCategories: string[]): boolean {
+    if (selectedCategories.length === 0) {
+      return true;
+    }
+    return selectedCategories.some(category => restaurant.categories.includes(category));
+  }
+  
+  restoreOriginalList() {
+    this.restaurants = this.originalRestaurants.slice();
+    this.restaurantsSubject.next(this.restaurants);
+  }
 
+  createRestaurant(user_id: string, name: string | null | undefined, adress: string | null | undefined): Observable<any> {
+    const data = {
+      manager_id: user_id,
+      name: name,
+      adress: adress
+    };
+
+    return this.http.post<any>(`${this.apiUrl}`, data);
+  }
 
 }

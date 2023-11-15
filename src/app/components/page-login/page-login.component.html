@@ -6,12 +6,16 @@
           <div class="card-body">
           <form [formGroup]="loginForm" (submit)="onSubmit()">
             <div class="mb-3">
-              <label for="username" class="form-label">Usuario</label>
-              <input type="text" class="form-control" formControlName="username" required>
+              <label for="email" class="form-label">Correo Electronico</label>
+              <input type="text" class="form-control" formControlName="email" [class.is-valid]="invalidEmail">
+              <small *ngIf="invalidEmail" style="color: crimson;">Ingrese un Correo Electronico valido</small>
+              <small style="color: crimson;">{{errordiv2}}</small>
             </div>
             <div class="mb-3">
               <label for="password" class="form-label">Contraseña</label>
-              <input type="password" class="form-control" formControlName="password" required>
+              <input type="password" class="form-control" formControlName="password" [class.is-valid]="invalidPassword">
+              <small *ngIf="invalidPassword" style="color: crimson;">Ingrese una Contraseña con un valida</small>
+              <small style="color: crimson;">{{errordiv}}</small>
             </div>
             <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Acceder</button>   
           </form>
