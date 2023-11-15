@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ReservationService } from 'src/app/services/reservation.service/reservation.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-page-reservation',
@@ -10,6 +11,7 @@ import { ReservationService } from 'src/app/services/reservation.service/reserva
 })
 export class PageReservationComponent {
   private restaurantId: string;
+   reservation?: any;
 
   reservationForm = new FormGroup({
     date: new FormControl('', Validators.required),
@@ -20,14 +22,14 @@ export class PageReservationComponent {
 
   userId = "774a3a7e-8e0c-4761-b89a-3e0429d34533";
 
-  constructor(private route: ActivatedRoute, private reservationService: ReservationService) {
+  constructor(private route: ActivatedRoute, private reservationService: ReservationService, private router: Router) {
     this.restaurantId = '';
   }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.restaurantId = params['id'];
-      console.log(this.restaurantId);
+  
     });
   }
   onSubmit() {
@@ -35,7 +37,6 @@ export class PageReservationComponent {
   
     if (date !== null && date !== undefined) {
       let selectedDate: string;
-  
       if (time !== null && time !== undefined) {
         const dateObject = new Date(date);
   
@@ -50,12 +51,23 @@ export class PageReservationComponent {
   
       this.reservationService.createReservation(this.userId, this.restaurantId, Number(res_size), selectedDate, comment)
         .subscribe(
-          response => console.log('Respuesta de la API:', response),
-          error => console.error('Error de la API:', error)
+          (response) => {
+            this.reservation = response;
+            console.log('Respuesta de la API:', response);
+  
+           
+            this.router.navigate(['/view-reservation', this.reservation.id]);
+          },
+          (error) => {
+            console.error('Error de la API:', error)
+
+          }
         );
     } else {
       console.error('El valor de "date" es nulo o indefinido.');
     }
   }
+  
+
   
 }

@@ -1,0 +1,32 @@
+<div class="container mt-5" *ngIf="reservation">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title">Detalles de la Reserva</h2>
+            <ul class="list-group">
+              <li class="list-group-item"><strong>Estado:</strong> {{ reservation.state === 'toConfirm' ? 'A Confirmar' : reservation.state }}</li>
+              <li class="list-group-item"><strong>Tamaño de la Reserva:</strong> {{ reservation.res_size }} personas</li>
+              <li class="list-group-item"><strong>Fecha de reserva:</strong> {{ reservation.due_date | date:'mediumDate' }}</li>
+              <li class="list-group-item"><strong>Horario:</strong> {{ reservation.due_date | date:'shortTime' }}</li>
+              <li class="list-group-item" *ngIf="reservation.tables && reservation.tables.length > 0">
+                <strong>Tables:</strong>
+                <ul class="list-group">
+                  <li class="list-group-item" *ngFor="let table of reservation.tables">{{ table }}</li>
+                </ul>
+              </li>
+              <li class="list-group-item" *ngIf="!reservation.tables || reservation.tables.length === 0">
+                <p>No hay mesas asignadas.</p>
+              </li>
+              <li class="list-group-item" *ngIf="reservation.comment">
+                <strong>Comentario:</strong> {{ reservation.comment }}
+              </li>
+            </ul>
+          </div>
+          <button class="btn btn-primary" [routerLink]="['/list-restaurants']">Volver a la Lista de Restaurantes</button>
+          <button class="btn btn-success ml-2" >Ver Mis Reservas</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
