@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ReservationService } from 'src/app/services/reservation.service/reservation.service';
 import { Router } from '@angular/router';
-
+import { userService } from 'src/app/services/api.service/userService';
 @Component({
   selector: 'app-page-reservation',
   templateUrl: './page-reservation.component.html',
@@ -20,9 +20,9 @@ export class PageReservationComponent {
     time: new FormControl('',Validators.required),
   });
 
-  userId = "774a3a7e-8e0c-4761-b89a-3e0429d34533";
+  // userId = "774a3a7e-8e0c-4761-b89a-3e0429d34533";
 
-  constructor(private route: ActivatedRoute, private reservationService: ReservationService, private router: Router) {
+  constructor(private route: ActivatedRoute, private reservationService: ReservationService, private router: Router, private userService: userService) {
     this.restaurantId = '';
   }
 
@@ -34,6 +34,7 @@ export class PageReservationComponent {
   }
   onSubmit() {
     const { date, res_size, comment, time } = this.reservationForm.value;
+    console.log(this.userService.user._id)
   
     if (date !== null && date !== undefined) {
       let selectedDate: string;
@@ -49,7 +50,7 @@ export class PageReservationComponent {
         selectedDate = new Date(date).toISOString();
       }
   
-      this.reservationService.createReservation(this.userId, this.restaurantId, Number(res_size), selectedDate, comment)
+      this.reservationService.createReservation(this.userService.user._id, this.restaurantId, Number(res_size), selectedDate, comment)
         .subscribe(
           (response) => {
             this.reservation = response;
