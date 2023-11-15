@@ -14,7 +14,7 @@ export class AppComponent {
 
   ngOnInit() {
     this.router.events.subscribe(event => {
-      if (this.router.url === '/login' || this.router.url === '/register') {
+      if (this.router.url === '/login' || this.router.url === '/register' || this.router.url === '/menu-admin') {
         // Estás en la página de login o en la de registro
         this.showNavbar = false; // 
       } else {
