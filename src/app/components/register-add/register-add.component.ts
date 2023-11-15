@@ -85,7 +85,7 @@ export class RegisterAddComponent {
 
  checkUsername(newuser: User): Observable<boolean> {
     return new Observable((observer) => {
-      const isUsernameValid = !this.data.some((user) => user.userName === newuser.userName);
+      const isUsernameValid = !this.data.some((user) => user.userName === newuser._userName);
       observer.next(isUsernameValid);
       observer.complete();
     });
@@ -93,7 +93,7 @@ export class RegisterAddComponent {
 
  checkEmail(newuser: User): Observable<boolean> {
     return new Observable((observer) => {
-      const isEmailValid = !this.data.some((user) => user.email === newuser.email);
+      const isEmailValid = !this.data.some((user) => user.email === newuser._email);
       observer.next(isEmailValid);
       observer.complete();
     });
@@ -101,21 +101,23 @@ export class RegisterAddComponent {
   
  checkDni(newuser: User): Observable<boolean> {
     return new Observable((observer) => {
-      const isDniValid = !this.data.some((user) => user.dni == newuser.dni);
+      const isDniValid = !this.data.some((user) => user.dni == newuser._dni);
       observer.next(isDniValid);
       observer.complete();
     });
   }
 
   createUser(): User{
-    let user = new User();
-    user.firstName = this.registerForm.get('firstName')?.value!;
-    user.lastName = this.registerForm.get('lastName')?.value!;
-    user.dni = this.registerForm.get('dni')?.value!;
-    user.email = this.registerForm.get('email')?.value!;
-    user.userName= this.registerForm.get('userName')?.value!;
-    user.password = this.registerForm.get('password')?.value!;
-    user.role = this.registerForm.get('role')?.value!;
+    const data ={
+      _firstName: this.registerForm.get('firstName')?.value!,
+      _lastName: this.registerForm.get('lastName')?.value!,
+      _dni: this.registerForm.get('dni')?.value!,
+      _email: this.registerForm.get('email')?.value!,
+      _userName: this.registerForm.get('userName')?.value!,
+      _password: this.registerForm.get('password')?.value!,
+      _role: this.registerForm.get('role')?.value!
+      }
+    let user = new User(data);
     return user;
   }
   
@@ -125,7 +127,7 @@ export class RegisterAddComponent {
       this.checkUsername(user),
       this.checkDni(user),
       this.checkEmail(user),
-      this.confirmPassword(user.password)
+      this.confirmPassword(user._password)
     ]);
   }
   

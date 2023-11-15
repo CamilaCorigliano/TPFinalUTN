@@ -9,13 +9,13 @@ import { result } from 'src/app/models/result.interface';
   providedIn: 'root'
 })
 export class userService {
-  user = new User;
+  user: User;
   private apiUrl="http://3.21.41.36:3000";
-  constructor(private http:HttpClient) { }
-  
-  public userid(user:User){
-    this.user=user;
+  constructor(private http:HttpClient) { 
+    this.user = new User({});
   }
+  
+ 
 
   public getUsers(url:string):Observable<any>{
     return this.http.get<any>(this.apiUrl+url);
@@ -34,9 +34,4 @@ export class userService {
     const result =this.http.post<result>(this.apiUrl+"/users",user)
     return result;
   }
-
-
-  
-
-
 }
