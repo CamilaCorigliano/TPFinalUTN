@@ -1,9 +1,8 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { userService } from 'src/app/services/api.service/userService';
 import { ReservationService } from 'src/app/services/reservation.service/reservation.service';
 import { RestaurantService } from 'src/app/services/restaurant.service/restaurant.service';
-import { Reservation } from 'src/app/models/reservation';
 
 @Component({
   selector: 'app-page-reservations-user',
@@ -12,27 +11,50 @@ import { Reservation } from 'src/app/models/reservation';
 })
 export class PageReservationsUserComponent implements OnInit {
 
-  // public reservations: Reservation[] = [];
-  reservations!: any[];
+  public reservations: any[] = [];
+  public restaurants: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private reservationService: ReservationService,
     private router: Router,
     private userService: userService,
-    private el: ElementRef
+    private restaurantService: RestaurantService
   ) { }
 
   ngOnInit() {
     this.reservationService.getByUser(this.userService.user._id).subscribe(
       data => {
-        this.reservations = data;
-        this.reservationService.setReservations(this.reservations)
+  
+        if (Array.isArray(data)) {
+          this.reservations = data;
+          this.reservationService.setReservations(this.reservations);
+          const uniqueRestaurantIds = new Set<string>();
+  
+          this.reservations.forEach(reservation => {
+            // Verificar si el restaurante ya está en el conjunto
+            if (!uniqueRestaurantIds.has(reservation.restaurant_id)) {
+              uniqueRestaurantIds.add(reservation.restaurant_id);
+  
+              this.restaurantService.getApiRestaurantsById(reservation.restaurant_id).subscribe(
+                restaurantData => {
+                  this.restaurants.push(restaurantData);
+                },
+                error => {
+                  console.log(`Error getting restaurantInfo: ${error.message}`);
+                }
+              );
+            }
+          });
+        } else {
+          console.error('La respuesta no es un array:', data);
+        }
       },
       error => {
-        console.log(error);
+        console.log(`Error getting reservations: ${error.message}`);
       }
     );
   }
-
+  
+  
 }
