@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { userService } from 'src/app/services/api.service/userService';
 import { CategoryService } from 'src/app/services/category.service/category.service';
 import { RestaurantService } from 'src/app/services/restaurant.service/restaurant.service';
 
@@ -11,11 +12,10 @@ import { RestaurantService } from 'src/app/services/restaurant.service/restauran
 })
 export class CategoryAddComponent {
 
-  restaurant! : any;
+  userRestaurant! : any;
   categoryForm: FormGroup;
-  restaurantId = "6c4a5400-ebe9-40e1-a85a-6d1dccb5844c";
 
-  constructor(private restaurantService: RestaurantService, private categoryService: CategoryService) {
+  constructor(private restaurantService: RestaurantService, private categoryService: CategoryService, private userService: userService) {
 
     this.categoryForm = new FormGroup({
       category: new FormControl('', Validators.required)
@@ -24,24 +24,22 @@ export class CategoryAddComponent {
   }
 
   ngOnInit(): void {
-
-      
-      this.restaurantService.getApiRestaurantsById(this.restaurantId).subscribe(
-        data => {
-          this.restaurant = data;
-        },
-        error => {
-          console.error(error);
-        }
+    if (this.userService.user && this.restaurantService.restaurants) {
+       this.userRestaurant = this.restaurantService.restaurants.find(
+        (restaurant) => restaurant.manager_id === this.userService.user._id
       );
+
+       }
+      
+
 
   }
 
-  onSubmit() {
+  onSubmit(){
 
     const { category} = this.categoryForm.value;
 
-    this.categoryService.createCategory(this.restaurantId, category)
+    this.categoryService.createCategory(this.userRestaurant.id, category)
         .subscribe(
           response =>  {this.categoryForm.reset()},
           error => console.error('Error de la API:', error)
@@ -50,4 +48,5 @@ export class CategoryAddComponent {
   }
 
 }
+
 
