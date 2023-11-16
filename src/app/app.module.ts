@@ -31,6 +31,7 @@ import { RestaurantAddComponent } from './components/restaurant/restaurant-add/r
 import { CategoryAddComponent } from './components/categories/category-add/category-add.component';
 import { PageReservationViewComponent } from './components/page-reservation-view/page-reservation-view.component';
 import { PageReservationsUserComponent } from './components/page-reservations-user/page-reservations-user.component';
+import { TableAddComponent } from './components/tables/table-add/table-add.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,8 @@ import { PageReservationsUserComponent } from './components/page-reservations-us
     CategoryAddComponent,
     PageReservationViewComponent,
     PageReservationsUserComponent,
+    TableAddComponent
+
   ],
   imports: [
     BrowserModule,
