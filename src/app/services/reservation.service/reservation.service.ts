@@ -28,7 +28,7 @@ export class ReservationService {
 
   getReservationsByResto(restaurant_id:string): Observable<any> {
 
-    return this.http.get<any>(`${this.apiUrl}/get/${restaurant_id}`)
+    return this.http.get<any>(`${this.apiUrl}/restaurant/${restaurant_id}`)
 
   }
   setReservations(data:any[]){

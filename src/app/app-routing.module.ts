@@ -13,12 +13,15 @@ import { CategoryAddComponent } from './components/categories/category-add/categ
 import { PageReservationViewComponent } from './components/page-reservation-view/page-reservation-view.component';
 import { TableAddComponent } from './components/tables/table-add/table-add.component';
 import { PageReservationsUserComponent } from './components/page-reservations-user/page-reservations-user.component';
+import { PageReservationsAdminComponent } from './components/page-reservations-admin/page-reservations-admin.component';
+
 const appRoutes: Routes = [
   { path: 'login', component: PageLoginComponent },
   { path: 'register', component: RegisterAddComponent },
   { path: 'list-restaurants', component:  RestaurantListComponent},  
   { path: 'view-restaurant/:id', component: RestaurantViewComponent },
   { path: 'reserve/:id', component: PageReservationComponent},
+  { path: 'reservations-admin', component: PageReservationsAdminComponent },
   { path: 'menu-admin', component:  PageMenuAdminComponent},
   { path: 'reservations-user', component: PageReservationsUserComponent},
   { path: 'add-restaurant', component:  RestaurantAddComponent},

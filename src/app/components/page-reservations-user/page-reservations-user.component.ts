@@ -32,7 +32,6 @@ export class PageReservationsUserComponent implements OnInit {
           const uniqueRestaurantIds = new Set<string>();
   
           this.reservations.forEach(reservation => {
-            // Verificar si el restaurante ya está en el conjunto
             if (!uniqueRestaurantIds.has(reservation.restaurant_id)) {
               uniqueRestaurantIds.add(reservation.restaurant_id);
   
