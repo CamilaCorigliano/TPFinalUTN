@@ -63,8 +63,6 @@ export class PageConfirmReservationComponent {
     }
   }
   onSubmit(){
-    const tables: any[] = [table]
-    this.reservationService.confirmReservation(this.userRestaurant.id, this.reservation.id, 'confirmed',
-    )
+   
   }
 }
