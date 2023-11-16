@@ -12,7 +12,8 @@ import { Reservation } from 'src/app/models/reservation';
 })
 export class PageReservationsUserComponent implements OnInit {
 
-  public reservations: Reservation[] = [];
+  // public reservations: Reservation[] = [];
+  reservations!: any[];
 
   constructor(
     private route: ActivatedRoute,

@@ -6,10 +6,10 @@
         <ul class="list-group" *ngIf="reservations.length > 0; else noReservations">
           <li *ngFor="let reservation of reservations" class="list-group-item custom-list-item d-flex justify-content-between align-items-center position-relative">
             <div>
-              <p>Fecha y Hora: {{ reservation._due_date | date: 'dd/MM/yyyy HH:mm' }}</p>
-              <p>Tamaño de la reserva: {{ reservation._res_size }}</p>
+              <p>Fecha y Hora: {{ reservation.due_date | date: 'dd/MM/yyyy HH:mm' }}</p>
+              <p>Tamaño de la reserva: {{ reservation.res_size }}</p>
             </div>
-            <button class="btn btn-primary custom-btn custom-btn-ver" [routerLink]="['/view-reservation', reservation._id]">Ver Detalles</button>
+            <button class="btn btn-primary custom-btn custom-btn-ver" [routerLink]="['/view-reservation', reservation.id]">Ver Detalles</button>
           </li>
         </ul>
         <ng-template #noReservations>
