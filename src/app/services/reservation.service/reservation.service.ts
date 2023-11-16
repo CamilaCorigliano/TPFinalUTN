@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject  } from 'rxjs';
+import { Reservation } from 'src/app/models/reservation';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,7 @@ import { Observable, Subject  } from 'rxjs';
 export class ReservationService {
   apiUrl: string = 'http://3.21.41.36:3000/reservations';
   userReservations: String[] = [];
+  reservations: Reservation[]= [];
   constructor(private http: HttpClient) { }
 
 
@@ -29,6 +31,12 @@ export class ReservationService {
     return this.http.get<any>(`${this.apiUrl}/get/${restaurant_id}`)
 
   }
+  setReservations(data:any[]){
+    this.userReservations = data;
+    this.reservations = data;
+    this.reservationSubject.next(this.reservations)
+  }
+  private reservationSubject = new Subject<any[]>();
 
   confirmReservation(restaurant_id:string, reservation_id:string, state:string, tables: string[]): Observable<any>{
     const data = {
@@ -45,6 +53,9 @@ export class ReservationService {
 
     return this.http.get<any>(`${this.apiUrl}/get/${reservation_id}`);
 
+  }
+  getByUser(user_id:string): Observable<any[]>{
+    return this.http.get<any[]>(`${this.apiUrl}/get/user/${user_id}`);
   }
 
 
