@@ -1,18 +1,21 @@
-<!-- page-reservations-user.component.html -->
-<div *ngIf="(reservations$ | async) as reservations; else loading">
-  <div *ngIf="reservations.length > 0; else noReservations">
-    <h2>Your Reservations</h2>
-    <ul>
-      <li *ngFor="let reservation of reservations">
-        <!-- Aquí puedes mostrar detalles de cada reserva -->
-        {{ reservation | json }}
-      </li>
-    </ul>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="text-center p-4" style="background-color: #f0f0f0; border-radius: 10px;">
+        <h2>Tus Reservas</h2>
+        <ul class="list-group" *ngIf="reservations.length > 0; else noReservations">
+          <li *ngFor="let reservation of reservations" class="list-group-item custom-list-item d-flex justify-content-between align-items-center position-relative">
+            <div>
+              <p>Fecha y Hora: {{ reservation._due_date | date: 'dd/MM/yyyy HH:mm' }}</p>
+              <p>Tamaño de la reserva: {{ reservation._res_size }}</p>
+            </div>
+            <button class="btn btn-primary custom-btn custom-btn-ver" [routerLink]="['/view-reservation', reservation._id]">Ver Detalles</button>
+          </li>
+        </ul>
+        <ng-template #noReservations>
+          <p>No hay reservas disponibles.</p>
+        </ng-template>
+      </div>
+    </div>
   </div>
-  <ng-template #noReservations>
-    <p>No reservations found.</p>
-  </ng-template>
 </div>
-<ng-template #loading>
-  <p>Loading reservations...</p>
-</ng-template>

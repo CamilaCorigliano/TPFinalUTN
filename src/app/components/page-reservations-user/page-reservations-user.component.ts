@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { userService } from 'src/app/services/api.service/userService';
 import { ReservationService } from 'src/app/services/reservation.service/reservation.service';
 import { RestaurantService } from 'src/app/services/restaurant.service/restaurant.service';
 import { Reservation } from 'src/app/models/reservation';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-page-reservations-user',
@@ -13,20 +12,26 @@ import { Observable } from 'rxjs';
 })
 export class PageReservationsUserComponent implements OnInit {
 
-  public reservations$: Observable<Reservation[]> = new Observable<Reservation[]>();
+  public reservations: Reservation[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private reservationService: ReservationService,
-    private restaurantService: RestaurantService,
     private router: Router,
-    private userService: userService
+    private userService: userService,
+    private el: ElementRef
   ) { }
 
   ngOnInit() {
-    this.reservations$ = this.reservationService.getByUser(this.userService.user._id);
-    this.reservations$.subscribe(reservations => {
-      console.log(reservations);
-    });
+    this.reservationService.getByUser(this.userService.user._id).subscribe(
+      data => {
+        this.reservations = data;
+        this.reservationService.setReservations(this.reservations)
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
+
 }
