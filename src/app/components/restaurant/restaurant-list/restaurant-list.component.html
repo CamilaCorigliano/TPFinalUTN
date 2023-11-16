@@ -15,9 +15,19 @@
                                 <i class="fa fa-star-half" *ngIf="star === 0.5"></i>
                             </span>
                         </div>
-                        <button class="btn btn-primary custom-btn custom-btn-ver" [routerLink]="['/view-restaurant', restaurant.id]">Ver</button>
-                        <button class="btn btn-link btn-lg custom-btn-corazon"><i class="bi bi-heart"></i></button>
-                      
+                        <ng-container *ngIf="isLogged">
+                            <button class="btn btn-primary custom-btn custom-btn-ver" [routerLink]="['/view-restaurant', restaurant.id]">Ver</button>
+                            <ng-container *ngIf="getFavorites(restaurant)==false; else favorite">
+                            <button class="btn btn-link btn-lg custom-btn-corazon" (click)="addToFavorites(restaurant)">
+                               <i class="bi bi-heart" ></i> 
+                            </button>
+                            </ng-container>
+                            <ng-template #favorite>
+                            <button class="btn btn-link btn-lg custom-btn-corazon" (click)="deleteFromFavorites(restaurant)">
+                                <i class="bi bi-heart" style="color: red;"></i>
+                            </button>
+                            </ng-template>
+                        </ng-container>
                     </li>
                   </ul> 
             </div>

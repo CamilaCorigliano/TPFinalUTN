@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { userService } from 'src/app/services/api.service/userService';
+import { AuthService } from 'src/app/services/auth.service/auth.service';
 import { RestaurantService } from 'src/app/services/restaurant.service/restaurant.service';
 
 
@@ -10,10 +12,11 @@ import { RestaurantService } from 'src/app/services/restaurant.service/restauran
 export class RestaurantListComponent  {
 
   restaurants!: any[];
-
-  constructor(private restaurantService: RestaurantService){}
+  isLogged!: boolean;
+  constructor(private restaurantService: RestaurantService, private userservice:userService, public authservice: AuthService){}
 
   ngOnInit(): void {
+    this.isLogged=this.authservice.isLoggedIn();
     this.restaurantService.getApiRestaurants().subscribe(
       data => {
         this.restaurants = data;
@@ -34,6 +37,37 @@ export class RestaurantListComponent  {
     );
   }
 
+  getFavorites(restaurant:any):boolean{
+    let respuesta: boolean;
+    if(this.userservice.user._favourites.some((rest)=>{
+      if(rest==restaurant){
+        return true
+      }else{
+        return false
+      }
+    })==true){
+      respuesta=true;
+    }else{
+      respuesta=false;
+    }
+    return respuesta;
+  }
+
+  addToFavorites(restaurant:any){
+    if(this.authservice.isLoggedIn()==true){
+    this.userservice.user._favourites.push(restaurant);
+    }
+  }
+
+  deleteFromFavorites(restaurant:any){
+    if (this.authservice.isLoggedIn()) {
+      const favorites = this.userservice.user._favourites;
+      const index = favorites.findIndex((favRestaurant: any) => favRestaurant === restaurant);
+      if (index !== -1) {
+          favorites.splice(index, 1);
+      }
+    }
+  }
   
 
   getStars(rating: number): number[] {
