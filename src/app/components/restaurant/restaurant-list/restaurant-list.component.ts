@@ -17,6 +17,11 @@ export class RestaurantListComponent  {
 
   ngOnInit(): void {
     this.isLogged=this.authservice.isLoggedIn();
+    if(this.isLogged==true){
+      this.userservice.getFavorites(this.userservice.user._id).subscribe((response)=>{
+        this.userservice.user._favourites=response;
+      })
+    }
     this.restaurantService.getApiRestaurants().subscribe(
       data => {
         this.restaurants = data;
@@ -54,19 +59,19 @@ export class RestaurantListComponent  {
   }
 
   addToFavorites(restaurant:any){
-    if(this.authservice.isLoggedIn()==true){
     this.userservice.user._favourites.push(restaurant);
-    }
+    this.userservice.addFavourites(this.userservice.user._id,restaurant.id).subscribe(data=>{
+      console.log(data);
+    });
   }
 
   deleteFromFavorites(restaurant:any){
-    if (this.authservice.isLoggedIn()) {
-      const favorites = this.userservice.user._favourites;
-      const index = favorites.findIndex((favRestaurant: any) => favRestaurant === restaurant);
+    
+    const index = this.userservice.user._favourites.findIndex((favRestaurant: any) => favRestaurant === restaurant);
       if (index !== -1) {
-          favorites.splice(index, 1);
+        this.userservice.user._favourites.splice(index, 1);
+          this.userservice.deleteFavorites(this.userservice.user._id,restaurant.id);
       }
-    }
   }
   
 

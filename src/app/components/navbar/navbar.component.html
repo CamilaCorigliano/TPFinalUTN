@@ -16,9 +16,11 @@
         <li class="nav-item add-list">
           <a class="nav-link" [routerLink]="['/list-restaurants']" routerLinkActive="active">List Restaurants</a>
         </li>
+        <ng-container *ngIf="isLogged">
         <li class="nav-item add-list">
           <a class="nav-link" [routerLink]="['/favorites']" routerLinkActive="active">Favoritos</a>
         </li>
+        </ng-container>
         </ul><div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
           </ul>
@@ -32,7 +34,7 @@
         
             <ng-template #loggedIn>
               <li class="nav-item me-2">
-                <a class="nav-link" [routerLink]="['']" routerLinkActive="active" (click)="authService.logout">Log out</a>
+                <a class="nav-link" [routerLink]="['']" routerLinkActive="active" (click)="logout()">Log out</a>
               </li>
             </ng-template>
           </ul>

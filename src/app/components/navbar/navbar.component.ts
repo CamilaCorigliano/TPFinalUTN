@@ -7,17 +7,16 @@ import { AuthService } from 'src/app/services/auth.service/auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+  isLogged!:boolean;
+  constructor(public authService: AuthService) { 
+  }
 
-  constructor(public authService: AuthService) { }
+  ngOnInit(){
+    this.isLogged=this.authService.isLoggedIn();
+  }
 
-  checkLoginStatus() {
-    const isLoggedIn = this.authService.isLoggedIn();
-  
-    if (isLoggedIn) {
-      console.log('El usuario está autenticado.');
-    } else {
-      console.log('El usuario no está autenticado.');
-    }
+  logout(){
+    this.authService.logout();
   }
 
 }

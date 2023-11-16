@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient,HttpParams,HttpHeaders} from '@angular/common/http';
 import { User } from 'src/app/models/user';
 import { result } from 'src/app/models/result.interface';
+import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 
 
 @Injectable({
@@ -29,6 +30,27 @@ export class userService {
     return this.http.post<result>(this.apiUrl+"/users/email",data);
   }
   
+  public addFavourites(userid:string,restaurantid:string):Observable<any>{
+    const data={
+      user_id:userid,
+      restaurant_id:restaurantid
+    }
+    const result= this.http.post<result>(this.apiUrl+"/users/favorites",data);
+    return result;
+  }
+
+  public deleteFavorites(userid:string,restaurantid:string):Observable<any>{
+    const data={
+      user_id: userid,
+      restaurant_id: restaurantid
+    }
+    const result= this.http.post<result>(this.apiUrl+"/users/fav/delete",data);
+    return result;
+  }
+
+  public getFavorites(userid:string):Observable<any>{
+    return this.http.get<any>(this.apiUrl+"/users/favorites/get/"+userid);
+  }
 
   public addUser(user:any):Observable<any>{
     const result =this.http.post<result>(this.apiUrl+"/users",user)
