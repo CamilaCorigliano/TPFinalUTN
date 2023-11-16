@@ -43,47 +43,47 @@ export class RestaurantService {
 
     // Verificar si hay al menos un restaurante con la última categoría seleccionada
     const hasRestaurantWithLastCategory = this.originalRestaurants.some(restaurant =>
-        this.hasCategory(restaurant, lastSelectedCategory)
+      this.hasCategory(restaurant, lastSelectedCategory)
     );
 
     if (!hasRestaurantWithLastCategory) {
-        this.clearList();
-        return;
+      this.clearList();
+      return;
     }
 
     const filteredRestaurants = this.originalRestaurants.filter(restaurant =>
-        this.matchesSearchTerm(restaurant, searchTerm) &&
-        this.hasAnySelectedCategory(restaurant, selectedCategories)
+      this.matchesSearchTerm(restaurant, searchTerm) &&
+      this.hasAnySelectedCategory(restaurant, selectedCategories)
     );
 
     if (filteredRestaurants.length > 0) {
-        this.restaurants = filteredRestaurants;
-        this.restaurantsSubject.next(this.restaurants);
+      this.restaurants = filteredRestaurants;
+      this.restaurantsSubject.next(this.restaurants);
     }
-}
+  }
 
-private hasCategory(restaurant: any, category: string): boolean {
+  private hasCategory(restaurant: any, category: string): boolean {
 
     return restaurant.categories.includes(category);
-}
+  }
 
-  
+
   clearList() {
     this.restaurants = [];
     this.restaurantsSubject.next(this.restaurants);
   }
-  
+
   matchesSearchTerm(restaurant: any, searchTerm: string): boolean {
     return restaurant.name.toLowerCase().includes(searchTerm.toLowerCase());
   }
-  
+
   hasAnySelectedCategory(restaurant: any, selectedCategories: string[]): boolean {
     if (selectedCategories.length === 0) {
       return true;
     }
     return selectedCategories.some(category => restaurant.categories.includes(category));
   }
-  
+
   restoreOriginalList() {
     this.restaurants = this.originalRestaurants.slice();
     this.restaurantsSubject.next(this.restaurants);
@@ -97,6 +97,9 @@ private hasCategory(restaurant: any, category: string): boolean {
     };
 
     return this.http.post<any>(`${this.apiUrl}`, data);
+  }
+  getTablesbyResto(restaurant_id: string) {
+    return this.http.get<any>(`${this.apiUrl}/tables/${restaurant_id}`)
   }
 
 }

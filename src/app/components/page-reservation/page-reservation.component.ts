@@ -20,8 +20,6 @@ export class PageReservationComponent {
     time: new FormControl('',Validators.required),
   });
 
-  // userId = "774a3a7e-8e0c-4761-b89a-3e0429d34533";
-
   constructor(private route: ActivatedRoute, private reservationService: ReservationService, private router: Router, private userService: userService) {
     this.restaurantId = '';
   }

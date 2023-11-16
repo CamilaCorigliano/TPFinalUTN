@@ -33,6 +33,7 @@ import { PageReservationViewComponent } from './components/page-reservation-view
 import { PageReservationsUserComponent } from './components/page-reservations-user/page-reservations-user.component';
 import { TableAddComponent } from './components/tables/table-add/table-add.component';
 import { PageReservationsAdminComponent } from './components/page-reservations-admin/page-reservations-admin.component';
+import { PageConfirmReservationComponent } from './components/page-confirm-reservation/page-confirm-reservation.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { PageReservationsAdminComponent } from './components/page-reservations-a
     PageReservationViewComponent,
     PageReservationsUserComponent,
     TableAddComponent,
-    PageReservationsAdminComponent
+    PageReservationsAdminComponent,
+    PageConfirmReservationComponent
 
   ],
   imports: [
