@@ -11,7 +11,6 @@
               <p *ngIf="reservation.state === 'toConfirm'" style="background-color: red;">A confirmar</p>
               <p *ngIf="reservation.state === 'confirmed'" style="background-color: green;">Confirmada</p>
               <div class="container mt-5">
-                <!-- Buscar el restaurante correspondiente -->
                 <ng-container *ngIf="restaurants">
                   <ng-container *ngFor="let restaurant of restaurants">
                     <ng-container *ngIf="restaurant.id === reservation.restaurant_id">
