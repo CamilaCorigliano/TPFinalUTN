@@ -12,12 +12,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class PageConfirmReservationComponent {
   userRestaurant!: any;
-  reservations!: any[];
-  restaurantTables!: any[];
-  reservationsAtSameTime!: any;
   tablesReserved!: any[];
   reservation!: any;
-  tablesReservedNumbers: number[] = [];
+ 
 
   confirmationForm  = new FormGroup({
     table: new FormControl('', Validators.required)
@@ -32,14 +29,7 @@ export class PageConfirmReservationComponent {
         (restaurant) => restaurant.manager_id === this.userService.user._id
       );
     }
-    this.restaurantService.getTablesbyResto(this.userRestaurant.id).subscribe(
-      (data) => {
-        this.restaurantTables = data;
-      },
-      (error) => {
-        console.log(`Error getting tables: ${error.message}`);
-      }
-    );
+    
     this.route.params.subscribe(params => {
       const reservationId = params['id'];
       this.reservationService.getById(reservationId).subscribe(
@@ -51,16 +41,13 @@ export class PageConfirmReservationComponent {
         }
       );
     });
-    this.reservations = this.reservationService.reservations;
-    this.reservationsAtSameTime = this.reservations.filter(reservation => reservation.due_date === this.reservation.due_date);
+    
 
-    if (this.reservationsAtSameTime && this.reservationsAtSameTime.length > 0) {
-      this.tablesReserved = this.reservationsAtSameTime[0].tables; 
-      this.tablesReservedNumbers = this.tablesReserved.map(tableId => {
-        const table = this.restaurantTables.find(table => table.id === tableId);
-        return table ? table.number : null;
-      });
-    }
+   
+
+  
+ 
+    
   }
   onSubmit(){
    
