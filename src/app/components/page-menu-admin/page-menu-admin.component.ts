@@ -20,8 +20,7 @@ export class PageMenuAdminComponent {
     ().subscribe(
       data => {
         this.restaurants = data;
-        console.log(this.restaurants);
-        console.log(this.userService.user);
+        this.restaurantService.setRestaurants(this.restaurants);
         if (this.userService.user && this.restaurants) {
           this.userRestaurant = this.restaurants.find(
             (restaurant) => restaurant.manager_id === this.userService.user._id
