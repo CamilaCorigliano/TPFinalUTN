@@ -16,19 +16,23 @@ export class PageMenuAdminComponent {
   constructor(private router: Router, private restaurantService: RestaurantService, private userService: userService) { }
 
   ngOnInit(): void {
-    this.restaurantService.getRestaurantsObservable().subscribe(
+    this.restaurantService.getApiRestaurants
+    ().subscribe(
       data => {
         this.restaurants = data;
+        console.log(this.restaurants);
+        console.log(this.userService.user);
+        if (this.userService.user && this.restaurants) {
+          this.userRestaurant = this.restaurants.find(
+            (restaurant) => restaurant.manager_id === this.userService.user._id
+          );
+        }
       },
       error => {
         console.error(error);
       }
     );
-    if (this.userService.user && this.restaurantService.restaurants) {
-      this.userRestaurant = this.restaurantService.restaurants.find(
-        (restaurant) => restaurant.manager_id === this.userService.user._id
-      );
-    }
+
 
   }
 

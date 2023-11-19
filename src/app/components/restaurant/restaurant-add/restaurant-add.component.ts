@@ -27,7 +27,8 @@ export class RestaurantAddComponent {
 
     this.restaurantService.createRestaurant(this.userService.user._id, name, adress)
         .subscribe(
-          response => this.router.navigate(['/list-restaurants']),
+          response => 
+          this.router.navigate(['/menu-admin']),
           error => console.error('Error de la API:', error)
         );
 
