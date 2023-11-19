@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from 'src/app/services/category.service/category.service';
 import { RestaurantService } from 'src/app/services/restaurant.service/restaurant.service';
 import { userService } from 'src/app/services/api.service/userService';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-category-add',
@@ -13,14 +15,15 @@ export class CategoryAddComponent {
 
   userRestaurant: any;
   categoryForm: FormGroup;
-  allCategories: string[] = ['parrilla', 'sushi', 'vegano', 'pasta', 'italiana', 'china', 'rapida', 'pescado', 'cafeteria', 'pizza', 'hamburguesas', 'bar', 'vinoteca'];
+  allCategories: string[] = ['parrilla', 'sushi', 'vegano', 'pasta', 'italiana', 'china', 'rapida', 'pescado', 'cafeteria', 'pizza', 'hamburguesa', 'bar', 'vinoteca'];
   availableCategories: string[] = [];
   selectedCategories: string[] = [];
 
   constructor(
     private restaurantService: RestaurantService,
     private categoryService: CategoryService,
-    private userService: userService
+    private userService: userService,
+    private router: Router
   ) {
     this.categoryForm = new FormGroup({
       category: new FormControl('', Validators.required)
@@ -49,16 +52,12 @@ export class CategoryAddComponent {
 
   onSubmit() {
 
-    console.log("Categorias disp seleccionadas: ", this.selectedCategories);
-
-
     if (this.userRestaurant) {
       this.categoryService.createCategory(this.userRestaurant.id, this.selectedCategories)
         .subscribe(
           response => {
-            console.log('Categoría creada exitosamente:', response);
             this.categoryForm.reset();
-            this.updateAvailableCategories(); 
+            this.updateAvailableCategories();
           },
           error => {
             console.error('Error al crear la categoría:', error);

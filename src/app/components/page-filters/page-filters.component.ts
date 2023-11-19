@@ -12,7 +12,7 @@ export class PageFiltersComponent {
   nameFilter = new FormControl('');
   searchTerm: string = '';
   selectedCategories: string[] = [];
-  @Input() categories: string[] = ['parrilla', 'sushi', 'vegano', 'pasta', 'italiana', 'china', 'rapida', 'pescado', 'cafeteria', 'pizza', 'hamburguesas', 'bar', 'vinoteca'];
+  @Input() categories: string[] = ['parrilla', 'sushi', 'vegano', 'pasta', 'italiana', 'china', 'rapida', 'pescado', 'cafeteria', 'pizza', 'hamburguesa', 'bar', 'vinoteca'];
 
   constructor(private restaurantService: RestaurantService) {}
 
