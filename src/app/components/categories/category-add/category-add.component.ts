@@ -15,6 +15,7 @@ export class CategoryAddComponent {
   categoryForm: FormGroup;
   allCategories: string[] = ['parrilla', 'sushi', 'vegano', 'pasta', 'italiana', 'china', 'rapida', 'pescado', 'cafeteria', 'pizza', 'hamburguesas', 'bar', 'vinoteca'];
   availableCategories: string[] = [];
+  selectedCategories: string[] = [];
 
   constructor(
     private restaurantService: RestaurantService,
@@ -37,32 +38,41 @@ export class CategoryAddComponent {
         (restaurant) => restaurant.manager_id === this.userService.user._id
       );
 
-      console.log("Categorías del restaurante:", this.userRestaurant.categories);
     }
   }
 
   updateAvailableCategories() {
     if (this.userRestaurant) {
-      // Filtrar las categorías disponibles
       this.availableCategories = this.allCategories.filter(category => !this.userRestaurant.categories.includes(category));
     }
   }
 
   onSubmit() {
-    const { category } = this.categoryForm.value;
+
+    console.log("Categorias disp seleccionadas: ", this.selectedCategories);
+
 
     if (this.userRestaurant) {
-      this.categoryService.createCategory(this.userRestaurant.id, category)
+      this.categoryService.createCategory(this.userRestaurant.id, this.selectedCategories)
         .subscribe(
           response => {
             console.log('Categoría creada exitosamente:', response);
             this.categoryForm.reset();
-            this.updateAvailableCategories(); // Actualizar las categorías disponibles después de crear una nueva
+            this.updateAvailableCategories(); 
           },
           error => {
             console.error('Error al crear la categoría:', error);
           }
         );
+    }
+  
+  }
+
+  onSelectCategory(category: string) {
+    if (this.selectedCategories.includes(category)) {
+      this.selectedCategories = this.selectedCategories.filter(selectedCategory => selectedCategory !== category);
+    } else {
+      this.selectedCategories.push(category);
     }
   }
 

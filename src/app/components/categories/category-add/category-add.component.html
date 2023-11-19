@@ -40,10 +40,10 @@
             <!-- Mostrar categorías como checkboxes -->
             <div class="mb-3">
               <label>Categorías disponibles:</label>
-              <div class="form-check" *ngFor="let categorie of availableCategories">
+              <div class="form-check" *ngFor="let category of availableCategories">
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" [id]="categorie" [value]="categorie">
-                  <label class="form-check-label" [for]="categorie">{{ categorie }}</label>
+                  <input class="form-check-input" type="checkbox" [id]="category" [value]="category" (change)="onSelectCategory(category)">
+                  <label class="form-check-label" [for]="category">{{ category }}</label>
                 </div>
               </div>
             </div>
