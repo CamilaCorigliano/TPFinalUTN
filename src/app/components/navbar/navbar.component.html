@@ -13,7 +13,7 @@
         <li class="nav-item me-2" *ngIf="userService.user._role === 'res_admin'">
           <a class="nav-link" [routerLink]="['/menu-admin']" routerLinkActive="active">Menu Admin</a>
         </li>
-        <li class="nav-item add-list">
+        <li class="nav-item add-list" *ngIf="userService.user._role === 'client'">
           <a class="nav-link" [routerLink]="['/list-restaurants']" routerLinkActive="active">Ver Restaurants</a>
         </li>
         <li class="nav-item add-list">

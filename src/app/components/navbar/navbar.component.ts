@@ -10,9 +10,9 @@ import { userService } from 'src/app/services/api.service/userService';
 export class NavbarComponent {
 
   constructor(public authService: AuthService, public userService: userService) { 
-  console.log(this.userService.user._role);
+    
   }
-  /*
+  
   checkLoginStatus() {
    
     const isLoggedIn = this.authService.isLoggedIn();
@@ -25,7 +25,7 @@ export class NavbarComponent {
 
     console.log(this.userService);
   }
-  */
+  
 
 }
 

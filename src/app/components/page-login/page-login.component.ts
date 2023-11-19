@@ -45,7 +45,11 @@ export class PageLoginComponent {
           this.user = new User(data.user); // Crear una nueva instancia de User con los datos del servicio
           this.apiservice.user = this.user;
           this.authService.login();
-          this.router.navigate(['/list-restaurants']);
+          if (this.user._role === 'client') { 
+            this.router.navigate(['/list-restaurants']);
+          } else {
+            this.router.navigate(['/menu-admin']);
+          }
         } else {
           if (data.message === 500) {
             this.errordiv2 = "El email no está registrado";
