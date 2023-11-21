@@ -38,9 +38,9 @@ export class ReservationService {
   }
   private reservationSubject = new Subject<any[]>();
 
-  confirmReservation(restaurant_id:string, reservation_id:string, state:string, tables: string[]): Observable<any>{
+  confirmReservation(restaurant_id:string, reservation_id:string, state:string, tables: number[]): Observable<any>{
     const data = {
-      restaurant_id: reservation_id,
+      restaurant_id: restaurant_id,
       reservation_id: reservation_id,
       state: state,
       tables: tables
@@ -58,6 +58,12 @@ export class ReservationService {
     return this.http.get<any[]>(`${this.apiUrl}/get/user/${user_id}`);
   }
 
-
+  getTablesByDate(restaurant_id:string, due_date:string): Observable<any[]>{
+    const data ={
+      restaurant_id: restaurant_id,
+      due_date: due_date
+    }
+    return this.http.post<any[]>(`${this.apiUrl}/get/tables/date`, data)
+  }
 
 }

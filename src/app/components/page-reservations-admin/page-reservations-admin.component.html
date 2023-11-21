@@ -13,7 +13,7 @@
               <button class="btn btn-primary custom-btn custom-btn-ver" [routerLink]="['/view-reservation', reservation.id]">Ver Detalles</button> 
               <div class="col-md-8">
                 <br>
-                    <button class="btn btn-primary custom-btn custom-btn-ver" [routerLink]="['/confirm-reservation', reservation.id]">confirmar</button> 
+                    <button class="btn btn-primary custom-btn custom-btn-ver" [routerLink]="['/confirm-reservation', reservation.id]" *ngIf="reservation.state === 'toConfirm'">confirmar</button> 
                 </div>   
               </div>
             </li>
