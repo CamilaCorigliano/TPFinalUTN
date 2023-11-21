@@ -18,6 +18,7 @@ export class CategoryAddComponent {
   allCategories: string[] = ['parrilla', 'sushi', 'vegano', 'pasta', 'italiana', 'china', 'rapida', 'pescado', 'cafeteria', 'pizza', 'hamburguesa', 'bar', 'vinoteca'];
   availableCategories: string[] = [];
   selectedCategories: string[] = [];
+  selectedCategoriesUser: string[] = [];
 
   constructor(
     private restaurantService: RestaurantService,
@@ -57,7 +58,7 @@ export class CategoryAddComponent {
         .subscribe(
           response => {
             this.categoryForm.reset();
-            this.updateAvailableCategories();
+            //cuando se crea categorias, las seleccionadas se deben quitar de availableCategories
           },
           error => {
             console.error('Error al crear la categoría:', error);
@@ -67,11 +68,23 @@ export class CategoryAddComponent {
   
   }
 
+  onSubmitQuitCategories() {
+    console.log("CAT DEL RESTAURANT SELECCIONADAS", this.selectedCategoriesUser);
+  }
+
   onSelectCategory(category: string) {
     if (this.selectedCategories.includes(category)) {
       this.selectedCategories = this.selectedCategories.filter(selectedCategory => selectedCategory !== category);
     } else {
       this.selectedCategories.push(category);
+    }
+  }
+
+  onSelectCategoryQuit(category: string) {
+    if (this.selectedCategoriesUser.includes(category)) {
+      this.selectedCategoriesUser = this.selectedCategoriesUser.filter(selectedCategory => selectedCategory !== category);
+    } else {
+      this.selectedCategoriesUser.push(category);
     }
   }
 
