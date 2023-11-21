@@ -11,18 +11,21 @@
             </div>
           </div>
           <div class="card-header">Confirmación</div>
-          <div class="card-body">
+          <div class="card-body" *ngIf="availableTables.length > 0">
             <form [formGroup]="confirmationForm" (submit)="onSubmit()">
               <div class="mb-3">
                 <label for="table" class="form-label">Elija la Mesa(solo aparecen las disponibles)</label>
                 <mat-select [formControl]="tableControl" multiple>
                   <mat-option *ngFor="let availableTable of availableTables" [value]="availableTable.number">
-                    Mesa {{ availableTable.number }}
+                    Mesa {{ availableTable.number}}
                   </mat-option>
                 </mat-select>
               </div>
               <button type="submit" class="btn btn-primary">Confirmar</button>
             </form>
+          </div>
+          <div class="card-body" *ngIf="availableTables.length === 0">
+            <h3>No tienes mesas en ese horario</h3>
           </div>
         </div>
       </div>
