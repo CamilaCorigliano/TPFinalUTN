@@ -58,7 +58,8 @@ export class CategoryAddComponent {
         .subscribe(
           response => {
             this.categoryForm.reset();
-            //cuando se crea categorias, las seleccionadas se deben quitar de availableCategories
+            this.userRestaurant.categories = [...this.userRestaurant.categories, ...this.selectedCategories];
+            this.availableCategories = this.availableCategories.filter(category => !this.selectedCategories.includes(category));
           },
           error => {
             console.error('Error al crear la categoría:', error);
@@ -70,6 +71,8 @@ export class CategoryAddComponent {
 
   onSubmitQuitCategories() {
     console.log("CAT DEL RESTAURANT SELECCIONADAS", this.selectedCategoriesUser);
+    this.userRestaurant.categories = this.userRestaurant.categories.filter((category: string) => !this.selectedCategoriesUser.includes(category));
+    this.availableCategories = [...this.availableCategories, ...this.selectedCategoriesUser];
   }
 
   onSelectCategory(category: string) {
