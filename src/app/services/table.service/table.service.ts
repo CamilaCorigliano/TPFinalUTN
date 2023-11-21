@@ -21,5 +21,7 @@ export class TableService {
 
     return this.http.post<any>(`${this.apiUrl}/table`, data);
   }
-
+  getTables(restaurant_id:string){
+    return this.http.get<any>(`${this.apiUrl}/tables/${restaurant_id}`);
+  }
 }
