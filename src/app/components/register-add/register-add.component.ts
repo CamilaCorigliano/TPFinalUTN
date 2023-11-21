@@ -18,8 +18,8 @@ import { result } from 'src/app/models/result.interface';
 
 export class RegisterAddComponent {
  registerForm = new FormGroup({
-    firstName: new FormControl('',[Validators.minLength(5),Validators.maxLength(10),Validators.required]),
-    lastName: new FormControl('',[Validators.minLength(5),Validators.maxLength(10),Validators.required]),
+    firstName: new FormControl('',[Validators.minLength(3),Validators.maxLength(10),Validators.required]),
+    lastName: new FormControl('',[Validators.minLength(2),Validators.maxLength(10),Validators.required]),
     userName: new FormControl('',[Validators.minLength(5),Validators.maxLength(20
       ),Validators.required]),
     password: new FormControl('',Validators.minLength(6)),
@@ -140,9 +140,18 @@ export class RegisterAddComponent {
       this.errordiv3=" ";
       this.errordiv4=" ";
       if (isUsernameValid && isDniValid && isEmailValid && confirmPassword) {
-        this.apiservice.addUser(user).subscribe((data)=>{
-          console.log(data);
-        });
+        this.apiservice.addUser(user._userName, user._firstName, user._lastName, user._email, user._dni, 
+          user._role, user._password).subscribe(
+          (data)=>{
+            if(data.message.includes("created")){
+              alert("usuario creado")
+            }
+            },
+            (error)=>{
+              alert("error al crear usuario")
+              console.log(error)
+            }
+            );
         
         this.router.navigate(['/login']);
       } else {

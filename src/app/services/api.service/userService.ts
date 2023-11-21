@@ -30,7 +30,17 @@ export class userService {
   }
   
 
-  public addUser(user:any):Observable<any>{
+  public addUser(userName: string, firstName:string, lastName: string, email:string,
+    dni:string, role:string, password?:string):Observable<any>{
+      const user={
+        userName: userName,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        dni: dni,
+        role: role,
+        password: password
+      }
     const result =this.http.post<result>(this.apiUrl+"/users",user)
     return result;
   }
