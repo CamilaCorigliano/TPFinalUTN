@@ -36,6 +36,7 @@ export class PageConfirmReservationComponent {
   }
 
   ngOnInit() {
+    this.availableTables = [];
     if (this.userService.user && this.restaurantService.restaurants) {
       this.userRestaurant = this.restaurantService.restaurants.find(
         (restaurant) => restaurant.manager_id === this.userService.user._id
@@ -52,16 +53,15 @@ export class PageConfirmReservationComponent {
             .subscribe(
               (data) => {
                 this.tablesReserved = data;
+                console.log(this.tablesReserved);
                 this.tableServise.getTables(this.userRestaurant.id).subscribe(
                   (data) => {
                     this.tables = data;
                     if (this.tablesReserved.length > 0) {
-                      this.tables.forEach((table) => {
-                        this.tablesReserved.forEach((tableReserved) => {
-                          if (table.number != tableReserved.table_number) {
-                            this.tables.push(table.number);
-                          }
-                        });
+                      console.log(this.tables);
+                      this.availableTables = this.tables.filter((table) => {
+                        // Check if the table number is not in tablesReserved
+                        return !this.tablesReserved.some((tableReserved) => table.number === tableReserved.table_number);
                       });
                     } else {
                       this.availableTables = this.tables;
