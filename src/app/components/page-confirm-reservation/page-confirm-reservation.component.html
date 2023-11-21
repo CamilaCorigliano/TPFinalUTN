@@ -17,7 +17,7 @@
                 <label for="table" class="form-label">Elija la Mesa(solo aparecen las disponibles)</label>
                 <mat-select [formControl]="tableControl" multiple>
                   <mat-option *ngFor="let availableTable of availableTables" [value]="availableTable.number">
-                    Mesa {{ availableTable.number}}
+                    Mesa {{ availableTable.number}} capacidad: {{availableTable.capacity}}
                   </mat-option>
                 </mat-select>
               </div>
