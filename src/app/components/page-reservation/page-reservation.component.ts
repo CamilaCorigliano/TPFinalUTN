@@ -38,11 +38,8 @@ export class PageReservationComponent {
       let selectedDate: string;
       if (time !== null && time !== undefined) {
         const dateObject = new Date(date);
-  
-        if (time === 'noche') {
-          dateObject.setHours(20);
-        }
-  
+        dateObject.setHours(Number(time));
+       
         selectedDate = dateObject.toISOString();
       } else {
         selectedDate = new Date(date).toISOString();

@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { userService } from 'src/app/services/api.service/userService';
 import { ReservationService } from 'src/app/services/reservation.service/reservation.service';
 import { RestaurantService } from 'src/app/services/restaurant.service/restaurant.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TableService } from 'src/app/services/table.service/table.service';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-page-confirm-reservation',
   templateUrl: './page-confirm-reservation.component.html',
@@ -29,7 +29,8 @@ export class PageConfirmReservationComponent {
     private restaurantService: RestaurantService,
     private reservationService: ReservationService,
     private route: ActivatedRoute,
-    private tableServise: TableService
+    private tableServise: TableService,
+    private router: Router
   ) {}
   get tableControl() {
     return this.confirmationForm.get('table') as FormControl;
@@ -101,6 +102,7 @@ export class PageConfirmReservationComponent {
             .subscribe(
               (data) => {
                 alert('Reserva confirmada con éxito');
+                 this.router.navigate(['/view-reservation', this.reservationId])
               },
               (error) => {
                 console.error('Error al confirmar la reserva:', error.message);
