@@ -13,9 +13,11 @@ export class RestaurantListComponent  {
 
   restaurants!: any[];
   isLogged!: boolean;
+  favorites!: any[];
   constructor(private restaurantService: RestaurantService, private userservice:userService, public authservice: AuthService){}
 
   ngOnInit(): void {
+   console.log(this.userservice.user._favourites)
     this.isLogged=this.authservice.isLoggedIn();
     this.restaurantService.getApiRestaurants().subscribe(
       data => {
@@ -37,8 +39,10 @@ export class RestaurantListComponent  {
     );
   }
 
-  getFavorites(restaurant:any):boolean{
-    return this.userservice.user._favourites.some(rest=>rest===restaurant);
+  isFavorite(restaurantId:string):boolean{
+    const check = this.userservice.user._favourites.some(rest=>rest===restaurantId);
+    console.log(check)
+    return check
   }
 
   addToFavorites(restaurant:any){
