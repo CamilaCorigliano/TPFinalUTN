@@ -12,7 +12,7 @@
               <li class="list-group-item" *ngIf="reservation.tables && reservation.tables.length > 0">
                 <strong>Tables:</strong>
                 <ul class="list-group">
-                  <li class="list-group-item" *ngFor="let table of reservation.tables">{{ table }}</li>
+                  <li class="list-group-item" *ngFor="let table of reservation.tables">number: {{ table._number }}</li>
                 </ul>
               </li>
               <li class="list-group-item" *ngIf="!reservation.tables || reservation.tables.length === 0">

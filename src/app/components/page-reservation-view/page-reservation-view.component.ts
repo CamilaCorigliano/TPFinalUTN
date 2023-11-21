@@ -18,6 +18,8 @@ export class PageReservationViewComponent {
       this.reservationService.getById(reservationId).subscribe(
         data => {
           this.reservation = data;
+          console.log(this.reservation);
+          
         },
         error => {
           console.log(error);
