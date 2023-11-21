@@ -51,6 +51,11 @@ export class RestaurantListComponent  {
 
     return stars;
   }
+
+  getRandomStars(): number {
+    return Math.floor(Math.random() * 10) / 2 + 0.5;
+  }
+
   addFav(userId: string, restaurantId: string){
     this.apiService.addFavorite(userId, restaurantId);
   }

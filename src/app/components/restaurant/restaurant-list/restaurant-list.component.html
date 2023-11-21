@@ -1,24 +1,31 @@
+
 <div class="container mt-5">
   <div class="row">
     <div class="col-md-4">
       <app-page-filters></app-page-filters>
     </div>
-    <!-- Listado de Restaurantes a la Derecha -->
     <div class="col-md-8">
-      <div class="text-center p-4" style="background-color: #f0f0f0; border-radius: 10px; overflow: auto; max-height: 500px;">
-        <ul class="list-group">
-          <li class="list-group-item custom-list-item d-flex justify-content-between align-items-center position-relative" *ngFor="let restaurant of restaurants">
-            <div>
-              <span>{{ restaurant.name }} - {{ restaurant.adress }}</span>
-              <span *ngFor="let star of getStars(4.5)" class="star-yellow">
-                <i class="fa fa-star" *ngIf="star === 1"></i>
-                <i class="fa fa-star-half" *ngIf="star === 0.5"></i>
-              </span>
+      <div class="text-center p-4" style="background-color: #f0f0f0; border-radius: 10px; overflow: auto;">
+        <div class="row">
+          <div class="col-md-4" *ngFor="let restaurant of restaurants">
+            <div class="card mb-4">
+              <div class="card-body">
+                <h2 class="card-title">{{ restaurant.name }}</h2>
+                <p class="card-text">{{ restaurant.adress }}</p>
+                <div>
+                  <span *ngFor="let star of getStars(getRandomStars())" class="star-yellow">
+                    <i class="fa fa-star" style="font-size: 18px;" *ngIf="star === 1"></i>
+                    <i class="fa fa-star-half" style="font-size: 18px;" *ngIf="star === 0.5"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="card-footer d-flex justify-content-between">
+                <button class="btn btn-primary custom-btn custom-btn-ver" [routerLink]="['/view-restaurant', restaurant.id]">Ver</button>
+                <button class="btn btn-link btn-lg custom-btn-corazon"><i class="bi bi-heart"></i></button>
+              </div>
             </div>
-            <button class="btn btn-primary custom-btn custom-btn-ver" [routerLink]="['/view-restaurant', restaurant.id]">Ver</button>
-            <button class="btn btn-link btn-lg custom-btn-corazon"><i class="bi bi-heart"></i></button>
-          </li>
-        </ul>
+          </div>
+        </div>
       </div>
     </div>
   </div>
