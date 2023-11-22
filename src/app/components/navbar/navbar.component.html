@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="">
       <img src="assets/images/logo.jpeg" height="80">
     </a>
 
@@ -13,10 +13,10 @@
         <li class="nav-item me-2" *ngIf="userService.user._role === 'res_admin'">
           <a class="nav-link" [routerLink]="['/menu-admin']" routerLinkActive="active">Menu Admin</a>
         </li>
-        <li class="nav-item add-list" *ngIf="userService.user._role === 'client'">
+        <li class="nav-item add-list" *ngIf="userService.user._role === 'client' && authService.isLoggedIn()">
           <a class="nav-link" [routerLink]="['/list-restaurants']" routerLinkActive="active">Ver Restaurants</a>
         </li>
-        <li class="nav-item add-list" *ngIf="authService.isLoggedIn()">
+        <li class="nav-item add-list" *ngIf="authService.isLoggedIn() && userService.user._role === 'client'">
           <a class="nav-link" [routerLink]="['/reservations-user']" routerLinkActive="active">Ver reservas</a>
         </li>
         </ul><div class="collapse navbar-collapse" id="navbarNav">
@@ -32,7 +32,7 @@
         
             <ng-template #loggedIn>
               <li class="nav-item me-2">
-                <a class="nav-link" [routerLink]="['']" routerLinkActive="active" (click)="authService.logout">Log out</a>
+                <a class="nav-link" [routerLink]="['']" routerLinkActive="active" (click)="logout()">Log out</a>
               </li>
             </ng-template>
           </ul>

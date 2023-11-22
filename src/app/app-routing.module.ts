@@ -25,6 +25,7 @@ const appRoutes: Routes = [
   { path: 'list-restaurants', component:  RestaurantListComponent},  
   { path: 'view-restaurant/:id',canActivate:[authGuard], component: RestaurantViewComponent},
   { path: 'reserve/:id',canActivate:[authGuard], component: PageReservationComponent},
+  { path: 'view-reservation/:id',canActivate:[authGuard], component : PageReservationViewComponent},                            
   { path: 'reservations-admin',canActivate:[adminGuard], component: PageReservationsAdminComponent },
   { path: 'menu-admin',canActivate:[adminGuard], component:  PageMenuAdminComponent},
   { path: 'confirm-reservation/:id',canActivate:[adminGuard], component: PageConfirmReservationComponent},// se le pasa el id de reservation
@@ -32,7 +33,7 @@ const appRoutes: Routes = [
   { path: 'add-restaurant',canActivate:[adminGuard], component:  RestaurantAddComponent},
   { path: 'add-categories',canActivate:[adminGuard], component:  CategoryAddComponent},
   { path: 'add-tables',canActivate:[adminGuard], component:  TableAddComponent},      
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/list-restaurants', pathMatch: 'full' },
   { path: '**', component : PageNotFoundComponent },
 ]
 
