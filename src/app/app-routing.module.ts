@@ -34,7 +34,7 @@ const appRoutes: Routes = [
   { path: 'add-restaurant',canActivate:[adminGuard], component:  RestaurantAddComponent},
   { path: 'add-categories',canActivate:[adminGuard], component:  CategoryAddComponent},
   { path: 'add-tables',canActivate:[adminGuard], component:  TableAddComponent},      
-  { path: '', redirectTo: '/list-restaurants', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component : PageNotFoundComponent },
 ]
 
