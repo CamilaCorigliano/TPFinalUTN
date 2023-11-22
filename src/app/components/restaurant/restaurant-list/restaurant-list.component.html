@@ -1,4 +1,3 @@
-
 <div class="container mt-5">
   <div class="row">
     <div class="col-md-4">
@@ -13,15 +12,27 @@
                 <h2 class="card-title">{{ restaurant.name }}</h2>
                 <p class="card-text">{{ restaurant.adress }}</p>
                 <div>
-                  <span *ngFor="let star of getStars(getRandomStars())" class="star-yellow">
+                  <span *ngFor="let star of getStars(3)" class="star-yellow">
                     <i class="fa fa-star" style="font-size: 18px;" *ngIf="star === 1"></i>
                     <i class="fa fa-star-half" style="font-size: 18px;" *ngIf="star === 0.5"></i>
                   </span>
                 </div>
               </div>
               <div class="card-footer d-flex justify-content-between">
-                <button class="btn btn-primary custom-btn custom-btn-ver" [routerLink]="['/view-restaurant', restaurant.id]">Ver</button>
-                <button class="btn btn-link btn-lg custom-btn-corazon"><i class="bi bi-heart"></i></button>
+                <ng-container *ngIf="isLogged">
+                  <button class="btn btn-primary custom-btn custom-btn-ver"
+                    [routerLink]="['/view-restaurant', restaurant.id]">Ver</button>
+                  <ng-container *ngIf="!(isFavorite(restaurant.id)); else favorite">
+                    <button class="btn btn-link btn-lg custom-btn-corazon" (click)="addToFavorites(restaurant)">
+                      <i class="bi bi-heart"></i>
+                    </button>
+                  </ng-container>
+                  <ng-template #favorite>
+                    <button class="btn btn-link btn-lg custom-btn-corazon" (click)="deleteFromFavorites(restaurant.id)">
+                      <i class="bi bi-heart" style="color: red;"></i>
+                    </button>
+                  </ng-template>
+                </ng-container>
               </div>
             </div>
           </div>

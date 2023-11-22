@@ -30,6 +30,7 @@ import { PageMenuAdminComponent } from './components/page-menu-admin/page-menu-a
 import { RestaurantAddComponent } from './components/restaurant/restaurant-add/restaurant-add.component';
 import { CategoryAddComponent } from './components/categories/category-add/category-add.component';
 import { PageReservationViewComponent } from './components/page-reservation-view/page-reservation-view.component';
+import { FavoritesComponent } from './components/favorites/favorites.component';
 import { PageReservationsUserComponent } from './components/page-reservations-user/page-reservations-user.component';
 import { TableAddComponent } from './components/tables/table-add/table-add.component';
 import { PageReservationsAdminComponent } from './components/page-reservations-admin/page-reservations-admin.component';
@@ -51,6 +52,7 @@ import { PageConfirmReservationComponent } from './components/page-confirm-reser
     RestaurantAddComponent,
     CategoryAddComponent,
     PageReservationViewComponent,
+    FavoritesComponent,
     PageReservationsUserComponent,
     TableAddComponent,
     PageReservationsAdminComponent,

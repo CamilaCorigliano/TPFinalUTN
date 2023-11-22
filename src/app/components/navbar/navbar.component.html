@@ -19,6 +19,11 @@
         <li class="nav-item add-list" *ngIf="authService.isLoggedIn() && userService.user._role === 'client'">
           <a class="nav-link" [routerLink]="['/reservations-user']" routerLinkActive="active">Ver reservas</a>
         </li>
+        <ng-container *ngIf="isLogged">
+        <li class="nav-item add-list">
+          <a class="nav-link" [routerLink]="['/favorites']" routerLinkActive="active">Favoritos</a>
+        </li>
+        </ng-container>
         </ul><div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
           </ul>

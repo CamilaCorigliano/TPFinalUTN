@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { userService } from 'src/app/services/api.service/userService';
+import { AuthService } from 'src/app/services/auth.service/auth.service';
 import { ApiService } from 'src/app/services/apiservice';
 import { RestaurantService } from 'src/app/services/restaurant.service/restaurant.service';
 
@@ -11,14 +13,29 @@ import { RestaurantService } from 'src/app/services/restaurant.service/restauran
 export class RestaurantListComponent  {
 
   restaurants!: any[];
+  isLogged!: boolean;
+ 
+  constructor(private restaurantService: RestaurantService, private userservice:userService, public authservice: AuthService, private apiService: ApiService){}
 
-  constructor(private restaurantService: RestaurantService, private apiService: ApiService){}
 
   ngOnInit(): void {
+  //   this.userservice.getFavorites(this.userservice.user._id).subscribe(
+  //     data => {
+  //         this.favorites = data;
+  //         this.userservice.user._favourites = data;
+  //         this.userservice.setFavorites(this.favorites);
+  //     },
+  //     error => {
+  //         console.log(error);
+  //     }
+  // );
+    this.isLogged=this.authservice.isLoggedIn();
     this.restaurantService.getApiRestaurants().subscribe(
       data => {
         this.restaurants = data;
         this.restaurantService.setRestaurants(this.restaurants);
+        console.log(this.restaurants);
+        
       },
       error => {
         console.error(error);
@@ -34,7 +51,44 @@ export class RestaurantListComponent  {
       }
     );
   }
+  isFavorite(restaurantId: string): boolean {
+    if (this.userservice.user._favourites) {
+      return this.userservice.user._favourites.some((favRestaurant: any) => favRestaurant.restaurant_id === restaurantId);
+    }
+    return false;
+  }
+  
+  addToFavorites(restaurant:any){
+    
+    this.userservice.addFavourites(this.userservice.user._id, restaurant.id).subscribe(
+      data=>{
+        this.userservice.getFavorites(this.userservice.user._id).subscribe(
+          data=>{
+            this.userservice.user._favourites = data;
+          },
+          error =>{
+            console.log(error);
+            
+          }
+        )
+      this.userservice.user._favourites.push(restaurant);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
 
+  deleteFromFavorites(idRestaurant:any){
+
+    const index = this.userservice.user._favourites.findIndex((favRestaurant: any) => favRestaurant.restaurant_id === idRestaurant);
+      if (index !== -1) {
+        this.userservice.user._favourites.splice(index, 1);
+          this.userservice.deleteFavorites(this.userservice.user._id, idRestaurant).subscribe(data=>console.log(data)
+          );
+      }
+      
+  }
   
 
   getStars(rating: number): number[] {

@@ -16,12 +16,12 @@ export class PageLoginComponent {
     password: new FormControl('', Validators.minLength(6))
   });
 
-  private user: User | null;
+  private user!: User;
   errordiv = "";
   errordiv2 = "";
 
   constructor(private router: Router, public authService: AuthService, private apiservice: userService, private fb: FormBuilder) { 
-    this.user = null; 
+    
   }
 
   ngOnInit() {
@@ -43,7 +43,18 @@ export class PageLoginComponent {
       (data: any) => {
         if (data.message === "Login successful") {
           this.user = new User(data.user); // Crear una nueva instancia de User con los datos del servicio
-          this.apiservice.user = this.user;
+          this.apiservice.getFavorites(this.user._id).subscribe(
+            data=>{
+             this.user._favourites = data;
+             this.apiservice.user = this.user;
+             this.apiservice.setFavorites(this.apiservice.favourites);
+            },
+            error =>{
+              console.log(error);
+              
+            }
+          )
+         
           this.authService.login();
           if (this.user._role === 'client') { 
             this.router.navigate(['/list-restaurants']);

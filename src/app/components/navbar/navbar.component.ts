@@ -8,11 +8,16 @@ import { userService } from 'src/app/services/api.service/userService';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-
+  
+  isLogged!:boolean;
   constructor(public authService: AuthService, public userService: userService) { 
     
   }
-  
+
+  ngOnInit(){
+    this.isLogged=this.authService.isLoggedIn();
+  }
+
   checkLoginStatus() {
    
     const isLoggedIn = this.authService.isLoggedIn();
