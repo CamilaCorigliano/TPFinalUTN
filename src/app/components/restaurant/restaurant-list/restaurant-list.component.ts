@@ -49,20 +49,27 @@ export class RestaurantListComponent  {
       }
     );
   }
-   isFavorite(restaurantId: string): boolean {
-    if(this.userservice.favourites){
-      let check = true
-      console.log(check);
-      return check;
-      
+  isFavorite(restaurantId: string): boolean {
+    if (this.userservice.user._favourites) {
+      return this.userservice.user._favourites.some((favRestaurant: any) => favRestaurant.restaurant_id === restaurantId);
     }
-    return false
-   }
+    return false;
+  }
+  
   addToFavorites(restaurant:any){
-    this.userservice.user._favourites.push(restaurant);
-    this.userservice.addFavourites(this.userservice.user._id,restaurant.id).subscribe(
+    
+    this.userservice.addFavourites(this.userservice.user._id, restaurant.id).subscribe(
       data=>{
-      console.log(data);
+        this.userservice.getFavorites(this.userservice.user._id).subscribe(
+          data=>{
+            this.userservice.user._favourites = data;
+          },
+          error =>{
+            console.log(error);
+            
+          }
+        )
+      this.userservice.user._favourites.push(restaurant);
       },
       error => {
         console.log(error);
@@ -70,13 +77,15 @@ export class RestaurantListComponent  {
     );
   }
 
-  deleteFromFavorites(restaurant:any){
-    const index = this.userservice.user._favourites.findIndex((favRestaurant: any) => favRestaurant === restaurant);
+  deleteFromFavorites(idRestaurant:any){
+
+    const index = this.userservice.user._favourites.findIndex((favRestaurant: any) => favRestaurant.restaurant_id === idRestaurant);
       if (index !== -1) {
         this.userservice.user._favourites.splice(index, 1);
-          this.userservice.deleteFavorites(this.userservice.user._id,restaurant.id).subscribe(data=>console.log(data)
+          this.userservice.deleteFavorites(this.userservice.user._id, idRestaurant).subscribe(data=>console.log(data)
           );
       }
+      
   }
   
 
