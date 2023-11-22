@@ -9,20 +9,22 @@ import { RestaurantService } from 'src/app/services/restaurant.service/restauran
 })
 export class PageFiltersComponent {
 
-  
   nameFilter = new FormControl('');
   searchTerm: string = '';
   selectedCategories: string[] = [];
-  @Input() categories: string[] = ['parrilla', 'sushi', 'vegano', 'pasta', 'italiana', 'china', 'rapida', 'pescado', 'cafeteria', 'pizza', 'hamburguesas', 'bar', 'vinoteca'];
+  @Input() categories: string[] = ['parrilla', 'sushi', 'vegano', 'pasta', 'italiana', 'china', 'rapida', 'pescado', 'cafeteria', 'pizza', 'hamburguesa', 'bar', 'vinoteca'];
 
   constructor(private restaurantService: RestaurantService) {}
 
+  ngOnInit() {
+
+    this.nameFilter.valueChanges.subscribe(value => {
+      this.applyFilters();
+    });
+  }
+
   applyFilters() {
-    if (this.searchTerm !== '' || this.selectedCategories.length > 0) {
-      this.restaurantService.applyFilters(this.searchTerm, this.selectedCategories);
-    } else {
-      this.restaurantService.restoreOriginalList();
-    }
+    this.restaurantService.applyFilters(this.searchTerm, this.selectedCategories);
   }
 
   onInputChange(event: Event): void {
@@ -32,6 +34,8 @@ export class PageFiltersComponent {
     } else {
       this.searchTerm = '';
     }
+
+    this.applyFilters();
   }
 
   onCategoryChange(category: string): void {
@@ -41,8 +45,20 @@ export class PageFiltersComponent {
     } else {
       this.selectedCategories.splice(index, 1);
     }
+
+    this.applyFilters();
   }
-  
 
-
+  clearFilters() {
+    this.nameFilter.setValue('');
+    this.searchTerm = '';
+    this.selectedCategories = [];
+    this.categories.forEach(category => {
+      const checkbox = document.getElementById('tag' + category) as HTMLInputElement;
+      if (checkbox) {
+        checkbox.checked = false;
+      }
+    });
+    this.restaurantService.restoreOriginalList();
+  }
 }

@@ -4,16 +4,22 @@
       <div class="col-md-8">
         <div class="card">
           <div class="card-body text-center">
-            <h5 class="card-title">No hay restaurantes creados</h5>
-            <p class="card-text">Haz clic en el botón para agregar un nuevo restaurante.</p>
-            <button class="btn btn-primary btn-lg" (click)="addRestaurant()">Agregar Restaurante</button>
-            <div class="card-body text-center"><button class="btn btn-primary btn-lg" (click)="addCategories()">Agregar Categorias</button></div>
+            <div *ngIf="!userRestaurant">
+                <h5 class="card-title">No hay restaurantes creados</h5>
+                <div class="card-body text-center"><button class="btn btn-primary btn-lg" (click)="addRestaurant()">Crear restaurante</button></div>
+            </div>
+            <div *ngIf="userRestaurant">
+              <h1>Tu Restaurant:</h1>
+              <h1>{{userRestaurant.name}}</h1>
             
-            <div class="card-body text-center"><button class="btn btn-primary btn-lg" (click)="addTables()">Agregar Mesas</button></div>
+            <div class="card-body text-center"><button class="btn btn-primary btn-lg" (click)="addCategories()">Gestión Categorias</button></div>
             
+            <div class="card-body text-center"><button class="btn btn-primary btn-lg" (click)="addTables()">Gestión Mesas</button></div>
+            
+            <div class="card-body text-center"><button class="btn btn-primary btn-lg" (click)="viewReservations()">Ver Reservas</button></div>
+          </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  

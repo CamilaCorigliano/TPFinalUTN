@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { CategoryService } from 'src/app/services/category.service/category.service';
 import { RestaurantService } from 'src/app/services/restaurant.service/restaurant.service';
+import { userService } from 'src/app/services/api.service/userService';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-category-add',
@@ -11,43 +13,82 @@ import { RestaurantService } from 'src/app/services/restaurant.service/restauran
 })
 export class CategoryAddComponent {
 
-  restaurant! : any;
+  userRestaurant: any;
   categoryForm: FormGroup;
-  restaurantId = "6c4a5400-ebe9-40e1-a85a-6d1dccb5844c";
+  allCategories: string[] = ['parrilla', 'sushi', 'vegano', 'pasta', 'italiana', 'china', 'rapida', 'pescado', 'cafeteria', 'pizza', 'hamburguesa', 'bar', 'vinoteca'];
+  availableCategories: string[] = [];
+  selectedCategories: string[] = [];
+  selectedCategoriesUser: string[] = [];
 
-  constructor(private restaurantService: RestaurantService, private categoryService: CategoryService) {
-
+  constructor(
+    private restaurantService: RestaurantService,
+    private categoryService: CategoryService,
+    private userService: userService,
+    private router: Router
+  ) {
     this.categoryForm = new FormGroup({
       category: new FormControl('', Validators.required)
     });
-
   }
 
   ngOnInit(): void {
+    this.getRestaurantForUser();
+    this.updateAvailableCategories();
+  }
 
-      
-      this.restaurantService.getApiRestaurantsById(this.restaurantId).subscribe(
-        data => {
-          this.restaurant = data;
-        },
-        error => {
-          console.error(error);
-        }
+  getRestaurantForUser() {
+    if (this.userService.user && this.restaurantService.restaurants) {
+      this.userRestaurant = this.restaurantService.restaurants.find(
+        (restaurant) => restaurant.manager_id === this.userService.user._id
       );
 
+    }
+  }
+
+  updateAvailableCategories() {
+    if (this.userRestaurant) {
+      this.availableCategories = this.allCategories.filter(category => !this.userRestaurant.categories.includes(category));
+    }
   }
 
   onSubmit() {
 
-    const { category} = this.categoryForm.value;
-
-    this.categoryService.createCategory(this.restaurantId, category)
+    if (this.userRestaurant) {
+      this.categoryService.createCategory(this.userRestaurant.id, this.selectedCategories)
         .subscribe(
-          response =>  {this.categoryForm.reset()},
-          error => console.error('Error de la API:', error)
+          response => {
+            this.categoryForm.reset();
+            this.userRestaurant.categories = [...this.userRestaurant.categories, ...this.selectedCategories];
+            this.availableCategories = this.availableCategories.filter(category => !this.selectedCategories.includes(category));
+          },
+          error => {
+            console.error('Error al crear la categoría:', error);
+          }
         );
+    }
+  
+  }
 
+  onSubmitQuitCategories() {
+    console.log("CAT DEL RESTAURANT SELECCIONADAS", this.selectedCategoriesUser);
+    this.userRestaurant.categories = this.userRestaurant.categories.filter((category: string) => !this.selectedCategoriesUser.includes(category));
+    this.availableCategories = [...this.availableCategories, ...this.selectedCategoriesUser];
+  }
+
+  onSelectCategory(category: string) {
+    if (this.selectedCategories.includes(category)) {
+      this.selectedCategories = this.selectedCategories.filter(selectedCategory => selectedCategory !== category);
+    } else {
+      this.selectedCategories.push(category);
+    }
+  }
+
+  onSelectCategoryQuit(category: string) {
+    if (this.selectedCategoriesUser.includes(category)) {
+      this.selectedCategoriesUser = this.selectedCategoriesUser.filter(selectedCategory => selectedCategory !== category);
+    } else {
+      this.selectedCategoriesUser.push(category);
+    }
   }
 
 }
-

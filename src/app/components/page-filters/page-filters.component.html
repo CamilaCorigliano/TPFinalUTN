@@ -1,22 +1,21 @@
-
 <div class="row">
-    <div class="col-md-4">
-      <!-- Filtro por Categoría (Checkboxes) -->
-      <div class="form-check" *ngFor="let categorie of categories">
-        <input class="form-check-input" type="checkbox" [value]="categorie" [id]="'tag' + categorie"
-               (change)="onCategoryChange(categorie)">
-        <label class="form-check-label" [for]="'tag' + categorie">{{ categorie }}</label>
-      </div>
-  
-      <!-- Filtro por Nombre (con estilo de ancho personalizado) -->
-      <div class="mb-3">
-        <label for="nombre" class="form-label">Nombre:</label>
-        <input type="text" class="form-control form-control-sm" [formControl]="nameFilter" id="name" name="name"
-               style="width: 250px;" (input)="onInputChange($event)">
-      </div>
-  
-      <!-- Botón para aplicar filtros -->
-      <button type="button" class="btn btn-primary" (click)="applyFilters()">Aplicar Filtros</button>
+  <div class="col-md-2">
+    <button type="button" class="btn btn-success" (click)="clearFilters()">
+      <i class="bi bi-x-square"></i>
+    </button>
+  </div>
+
+  <div class="col-md-4">
+    <div class="form-check" *ngFor="let categorie of categories">
+      <input class="form-check-input" type="checkbox" [value]="categorie" [id]="'tag' + categorie"
+             (change)="onCategoryChange(categorie)">
+      <h4><label class="form-check-label" [for]="'tag' + categorie">{{ categorie }}</label></h4>
+    </div>
+
+    <div class="mb-3">
+      <h4><label for="nombre" class="form-label">Nombre:</label></h4>
+      <input type="text" class="form-control form-control-sm" [formControl]="nameFilter" id="name" name="name"
+             style="width: 250px; border-width: 5px;" (input)="onInputChange($event)">
     </div>
   </div>
-  
+</div>

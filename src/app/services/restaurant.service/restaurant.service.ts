@@ -39,51 +39,81 @@ export class RestaurantService {
   }
 
   applyFilters(searchTerm: string, selectedCategories: string[]) {
-    const lastSelectedCategory = selectedCategories[selectedCategories.length - 1] || '';
 
+    if (searchTerm === '' && selectedCategories.length === 0) {
+      this.restaurants = this.originalRestaurants.slice();
+      this.restaurantsSubject.next(this.restaurants);
+      return;
+    }
+    // Si no hay categorías seleccionadas, pero hay un término de búsqueda, filtrar por nombre
+    if (selectedCategories.length === 0 && searchTerm !== '') {
+      const filteredRestaurantsByName = this.originalRestaurants.filter(restaurant =>
+        this.matchesSearchTerm(restaurant, searchTerm)
+      );
+  
+      if (filteredRestaurantsByName.length > 0) {
+        this.restaurants = filteredRestaurantsByName;
+        this.restaurantsSubject.next(this.restaurants);
+      } else {
+        // Si no hay resultados después de filtrar por nombre, mostrar toda la lista original
+        this.restaurants = this.originalRestaurants.slice();
+        this.restaurantsSubject.next(this.restaurants);
+      }
+      return;
+    }
+  
+    const lastSelectedCategory = selectedCategories[selectedCategories.length - 1] || '';
+  
     // Verificar si hay al menos un restaurante con la última categoría seleccionada
     const hasRestaurantWithLastCategory = this.originalRestaurants.some(restaurant =>
-        this.hasCategory(restaurant, lastSelectedCategory)
+      this.hasCategory(restaurant, lastSelectedCategory)
     );
-
+  
     if (!hasRestaurantWithLastCategory) {
-        this.clearList();
-        return;
+      this.clearList();
+      return;
     }
-
+  
     const filteredRestaurants = this.originalRestaurants.filter(restaurant =>
-        this.matchesSearchTerm(restaurant, searchTerm) &&
-        this.hasAnySelectedCategory(restaurant, selectedCategories)
+      this.matchesSearchTerm(restaurant, searchTerm) &&
+      this.hasAnySelectedCategory(restaurant, selectedCategories)
     );
-
+  
     if (filteredRestaurants.length > 0) {
-        this.restaurants = filteredRestaurants;
-        this.restaurantsSubject.next(this.restaurants);
+      this.restaurants = filteredRestaurants;
+      this.restaurantsSubject.next(this.restaurants);
+    } else {
+      // Si no hay resultados después de aplicar los filtros, mostrar toda la lista original
+      this.restaurants = this.originalRestaurants.slice();
+      this.restaurantsSubject.next(this.restaurants);
     }
-}
+  }
+  
+  
+  
 
-private hasCategory(restaurant: any, category: string): boolean {
+  private hasCategory(restaurant: any, category: string): boolean {
 
     return restaurant.categories.includes(category);
-}
+  }
 
-  
+
   clearList() {
     this.restaurants = [];
     this.restaurantsSubject.next(this.restaurants);
   }
-  
+
   matchesSearchTerm(restaurant: any, searchTerm: string): boolean {
     return restaurant.name.toLowerCase().includes(searchTerm.toLowerCase());
   }
-  
+
   hasAnySelectedCategory(restaurant: any, selectedCategories: string[]): boolean {
     if (selectedCategories.length === 0) {
       return true;
     }
     return selectedCategories.some(category => restaurant.categories.includes(category));
   }
-  
+
   restoreOriginalList() {
     this.restaurants = this.originalRestaurants.slice();
     this.restaurantsSubject.next(this.restaurants);
@@ -97,6 +127,9 @@ private hasCategory(restaurant: any, category: string): boolean {
     };
 
     return this.http.post<any>(`${this.apiUrl}`, data);
+  }
+  getTablesbyResto(restaurant_id: string) {
+    return this.http.get<any>(`${this.apiUrl}/tables/${restaurant_id}`)
   }
 
 }

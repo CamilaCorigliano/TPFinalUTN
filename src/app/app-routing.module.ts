@@ -12,20 +12,29 @@ import { RestaurantAddComponent } from './components/restaurant/restaurant-add/r
 import { CategoryAddComponent } from './components/categories/category-add/category-add.component';
 import { PageReservationViewComponent } from './components/page-reservation-view/page-reservation-view.component';
 import { FavoritesComponent } from './components/favorites/favorites.component';
+import { TableAddComponent } from './components/tables/table-add/table-add.component';
+import { PageReservationsUserComponent } from './components/page-reservations-user/page-reservations-user.component';
+import { PageReservationsAdminComponent } from './components/page-reservations-admin/page-reservations-admin.component';
+import { PageConfirmReservationComponent } from './components/page-confirm-reservation/page-confirm-reservation.component';
+import { authGuard } from './auth.guard';
+import { adminGuard } from './admin.guard';
 
 const appRoutes: Routes = [
   { path: 'login', component: PageLoginComponent },
   { path: 'register', component: RegisterAddComponent },
-  { path: 'list-restaurants', component:  RestaurantListComponent},  
-  { path: 'view-restaurant/:id', component: RestaurantViewComponent },
-  { path: 'reserve/:id', component: PageReservationComponent},
-  { path: 'menu-admin', component:  PageMenuAdminComponent},
-  { path: 'add-restaurant', component:  RestaurantAddComponent},
-  { path: 'add-categories', component:  CategoryAddComponent},     
-  { path: 'view-reservation/:id', component: PageReservationViewComponent},
-  { path: 'list-restaurants', component:  RestaurantListComponent},  
+  { path: 'list-restaurants', component:  RestaurantListComponent},       
   { path: 'favorites', component:  FavoritesComponent},  
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'view-restaurant/:id',canActivate:[authGuard], component: RestaurantViewComponent},
+  { path: 'reserve/:id',canActivate:[authGuard], component: PageReservationComponent},
+  { path: 'view-reservation/:id',canActivate:[authGuard], component : PageReservationViewComponent},                            
+  { path: 'reservations-admin',canActivate:[adminGuard], component: PageReservationsAdminComponent },
+  { path: 'menu-admin',canActivate:[adminGuard], component:  PageMenuAdminComponent},
+  { path: 'confirm-reservation/:id',canActivate:[adminGuard], component: PageConfirmReservationComponent},// se le pasa el id de reservation
+  { path: 'reservations-user',canActivate:[authGuard], component: PageReservationsUserComponent},
+  { path: 'add-restaurant',canActivate:[adminGuard], component:  RestaurantAddComponent},
+  { path: 'add-categories',canActivate:[adminGuard], component:  CategoryAddComponent},
+  { path: 'add-tables',canActivate:[adminGuard], component:  TableAddComponent},      
+  { path: '', redirectTo: '/list-restaurants', pathMatch: 'full' },
   { path: '**', component : PageNotFoundComponent },
 ]
 

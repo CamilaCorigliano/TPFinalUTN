@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { userService } from 'src/app/services/api.service/userService';
 import { AuthService } from 'src/app/services/auth.service/auth.service';
+import { ApiService } from 'src/app/services/apiservice';
 import { RestaurantService } from 'src/app/services/restaurant.service/restaurant.service';
 
 
@@ -14,7 +15,8 @@ export class RestaurantListComponent  {
   restaurants!: any[];
   isLogged!: boolean;
  
-  constructor(private restaurantService: RestaurantService, private userservice:userService, public authservice: AuthService){}
+  constructor(private restaurantService: RestaurantService, private userservice:userService, public authservice: AuthService, private apiService: ApiService){}
+
 
   ngOnInit(): void {
   //   this.userservice.getFavorites(this.userservice.user._id).subscribe(
@@ -102,5 +104,13 @@ export class RestaurantListComponent  {
     }
 
     return stars;
+  }
+
+  getRandomStars(): number {
+    return Math.floor(Math.random() * 10) / 2 + 0.5;
+  }
+
+  addFav(userId: string, restaurantId: string){
+    this.apiService.addFavorite(userId, restaurantId);
   }
 }

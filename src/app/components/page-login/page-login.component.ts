@@ -56,7 +56,11 @@ export class PageLoginComponent {
           )
          
           this.authService.login();
-          this.router.navigate(['/list-restaurants']);
+          if (this.user._role === 'client') { 
+            this.router.navigate(['/list-restaurants']);
+          } else {
+            this.router.navigate(['/menu-admin']);
+          }
         } else {
           if (data.message === 500) {
             this.errordiv2 = "El email no está registrado";
