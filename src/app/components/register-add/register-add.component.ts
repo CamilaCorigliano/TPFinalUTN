@@ -20,13 +20,10 @@ export class RegisterAddComponent {
  registerForm = new FormGroup({
     firstName: new FormControl('',[Validators.minLength(3),Validators.maxLength(10),Validators.required]),
     lastName: new FormControl('',[Validators.minLength(2),Validators.maxLength(10),Validators.required]),
-    userName: new FormControl('',[Validators.minLength(5),Validators.maxLength(20
-      ),Validators.required]),
     password: new FormControl('',Validators.minLength(6)),
     confirmPassword: new FormControl(''),
     email :  new FormControl('',[Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$'),Validators.required]),
     dni: new FormControl('',[Validators.minLength(7),Validators.required,Validators.pattern('^[0-9]+$')]),
-    role: new FormControl('',Validators.required)
   });
   errordiv=" ";
   errordiv2=" ";
@@ -113,7 +110,6 @@ export class RegisterAddComponent {
       _lastName: this.registerForm.get('lastName')?.value!,
       _dni: this.registerForm.get('dni')?.value!,
       _email: this.registerForm.get('email')?.value!,
-      _userName: this.registerForm.get('userName')?.value!,
       _password: this.registerForm.get('password')?.value!,
       _role: this.registerForm.get('role')?.value!
       }
@@ -140,8 +136,7 @@ export class RegisterAddComponent {
       this.errordiv3=" ";
       this.errordiv4=" ";
       if (isUsernameValid && isDniValid && isEmailValid && confirmPassword) {
-        this.apiservice.addUser(user._userName, user._firstName, user._lastName, user._email, user._dni, 
-          user._role, user._password).subscribe(
+        this.apiservice.addUser(user._firstName, user._lastName, user._email, user._dni, user._password).subscribe(
           (data)=>{
             if(data.message.includes("created")){
               alert("usuario creado")

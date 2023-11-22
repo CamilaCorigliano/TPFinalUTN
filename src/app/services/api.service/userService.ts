@@ -52,15 +52,14 @@ export class userService {
     return this.http.get<any>(this.apiUrl+"/users/favorites/get/"+userid);
   }
 
-  public addUser(userName: string, firstName:string, lastName: string, email:string,
-    dni:string, role:string, password?:string):Observable<any>{
+  public addUser(firstName:string, lastName: string, email:string,
+    dni:string, password?:string):Observable<any>{
       const user={
-        userName: userName,
         firstName: firstName,
         lastName: lastName,
         email: email,
         dni: dni,
-        role: role,
+        role: "client",
         password: password
       }
     const result =this.http.post<result>(this.apiUrl+"/users",user)

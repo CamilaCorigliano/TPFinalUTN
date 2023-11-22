@@ -27,12 +27,6 @@
                <small style="color: crimson;">{{errordiv3}}</small>
               </div>
               <div class="mb-3">
-                <label for="username" class="form-label">Nombre de Usuario</label>
-              <input type="text" class="form-control" formControlName="userName"  [class.is-valid]="invalidUsername">
-              <small *ngIf="invalidUsername" style="color: crimson;">Ingrese un Nombre de Usuario con un minimo de 5 caracteres</small>
-              <small style="color: crimson;">{{errordiv2}}</small>
-              </div>
-              <div class="mb-3">
                 <label for="password" class="form-label">Contraseña</label>
                <input type="password" class="form-control" formControlName="password" [class.is-valid]="invalidPassword">
                <small *ngIf="invalidPassword" style="color: crimson;">Ingrese una Contraseña con un minimo de 6 caracteres</small>
@@ -41,21 +35,6 @@
                 <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
                <input type="password" class="form-control" formControlName="confirmPassword" required>
                <small style="color: crimson;">{{errordiv4}}</small>
-              </div>
-              <div class="mb-3">
-                <label class="form-label">¿Eres encargado?</label>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" formControlName="role" value="res_admin">
-                  <label class="form-check-label" for="encargadoSi">
-                    Sí
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" formControlName="role" value="client">
-                  <label class="form-check-label" for="encargadoNo">
-                    No
-                  </label>
-                </div>
               </div>
               <button type="submit" class="btn btn-primary" [disabled]="!registerForm.valid">Registrarse</button>
             </form>
