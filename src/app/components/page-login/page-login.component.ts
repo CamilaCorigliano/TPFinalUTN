@@ -47,6 +47,7 @@ export class PageLoginComponent {
             data=>{
              this.user._favourites = data;
              this.apiservice.user = this.user;
+             this.apiservice.setFavorites(this.apiservice.favourites);
             },
             error =>{
               console.log(error);

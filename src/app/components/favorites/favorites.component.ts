@@ -14,7 +14,18 @@ export class FavoritesComponent {
   constructor(private userService:userService, private authservice:AuthService){}
 
   ngOnInit(){
-    this.favorites=this.userService.user._favourites
+    this.userService.getFavorites(this.userService.user._id).subscribe(
+      data=> {
+        this.favorites = data
+        this.userService.user._favourites = this.favorites
+        console.log(this.favorites)
+        console.log(this.userService.user._favourites)
+      },
+      error => {
+        console.log(error);
+        
+      }
+    )
   }
   
   checkfavorites():boolean{
@@ -29,14 +40,25 @@ export class FavoritesComponent {
     return this.userService.user._favourites.some(rest=>rest===restaurant);
   }
 
-  deleteFromFavorites(restaurant:any){
-    const index = this.userService.user._favourites.findIndex((favRestaurant: any) => favRestaurant === restaurant);
-      if (index !== -1) {
-        this.userService.user._favourites.splice(index, 1);
-        this.userService.deleteFavorites(this.userService.user._id,restaurant.id).subscribe(data=>{
-          console.log(data);
-        });
+  deleteFromFavorites(restaurantId: string){
+    this.userService.deleteFavorites(this.userService.user._id, restaurantId).subscribe(
+      data =>{
+        console.log(data);
+        this.userService.getFavorites(this.userService.user._id).subscribe(
+          data =>{
+            this.favorites = data;
+            this.userService.user._favourites = data;
+          },
+          error=>{
+            console.log(error);
+            
+          }
+        )
+      },
+      error=> {
+        console.log(error);
       }
+    )
    }
   
 

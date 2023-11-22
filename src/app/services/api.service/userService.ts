@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs'; 
 import { HttpClient,HttpParams,HttpHeaders} from '@angular/common/http';
 import { User } from 'src/app/models/user';
 import { result } from 'src/app/models/result.interface';
-import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
-
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class userService {
   user: User;
+
+  favourites:any[] = [];
   private apiUrl="http://3.21.41.36:3000";
   constructor(private http:HttpClient) { 
     this.user = new User({});
@@ -39,10 +39,10 @@ export class userService {
     return result;
   }
 
-  public deleteFavorites(userid:string,restaurantid:string):Observable<any>{
+  public deleteFavorites(userId:string,restaurantId:string):Observable<any>{
     const data={
-      user_id: userid,
-      restaurant_id: restaurantid
+      user_id: userId,
+      restaurant_id: restaurantId
     }
     const result= this.http.post<result>(this.apiUrl+"/users/fav/delete",data);
     return result;
@@ -55,5 +55,8 @@ export class userService {
   public addUser(user:any):Observable<any>{
     const result =this.http.post<result>(this.apiUrl+"/users",user)
     return result;
+  }
+  setFavorites(data: any[]){
+    this.favourites = data;
   }
 }

@@ -8,8 +8,8 @@
                         <div>
                             <span>{{ restaurant.name }} - {{ restaurant.adress }}</span>
                         </div>
-                        <button class="btn btn-primary custom-btn custom-btn-ver" [routerLink]="['/view-restaurant', restaurant.id]">Ver</button>
-                        <button class="btn btn-danger btn" (click)="deleteFromFavorites(restaurant)"> Quitar </button>
+                        <button class="btn btn-primary custom-btn custom-btn-ver" [routerLink]="['/view-restaurant', restaurant.restaurant_id]">Ver</button>
+                        <button class="btn btn-danger btn" (click)="deleteFromFavorites(restaurant.restaurant_id)"> Quitar </button>
                     </li>
                 </ul> 
             </div>

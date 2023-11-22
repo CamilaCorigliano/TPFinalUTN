@@ -13,16 +13,27 @@ export class RestaurantListComponent  {
 
   restaurants!: any[];
   isLogged!: boolean;
-  favorites!: any[];
+ 
   constructor(private restaurantService: RestaurantService, private userservice:userService, public authservice: AuthService){}
 
   ngOnInit(): void {
-   console.log(this.userservice.user._favourites)
+  //   this.userservice.getFavorites(this.userservice.user._id).subscribe(
+  //     data => {
+  //         this.favorites = data;
+  //         this.userservice.user._favourites = data;
+  //         this.userservice.setFavorites(this.favorites);
+  //     },
+  //     error => {
+  //         console.log(error);
+  //     }
+  // );
     this.isLogged=this.authservice.isLoggedIn();
     this.restaurantService.getApiRestaurants().subscribe(
       data => {
         this.restaurants = data;
         this.restaurantService.setRestaurants(this.restaurants);
+        console.log(this.restaurants);
+        
       },
       error => {
         console.error(error);
@@ -38,18 +49,25 @@ export class RestaurantListComponent  {
       }
     );
   }
-
-  isFavorite(restaurantId:string):boolean{
-    const check = this.userservice.user._favourites.some(rest=>rest===restaurantId);
-    console.log(check)
-    return check
-  }
-
+   isFavorite(restaurantId: string): boolean {
+    if(this.userservice.favourites){
+      let check = true
+      console.log(check);
+      return check;
+      
+    }
+    return false
+   }
   addToFavorites(restaurant:any){
     this.userservice.user._favourites.push(restaurant);
-    this.userservice.addFavourites(this.userservice.user._id,restaurant.id).subscribe(data=>{
+    this.userservice.addFavourites(this.userservice.user._id,restaurant.id).subscribe(
+      data=>{
       console.log(data);
-    });
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   deleteFromFavorites(restaurant:any){
