@@ -1,29 +1,55 @@
 <div class="container mt-5" *ngIf="userRestaurant">
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <div class="card">
-          <div class="card-body">
-            <h1 class="card-title">{{ userRestaurant.name }}</h1>
-            <p class="card-text">{{ userRestaurant.adress }}</p>
-          </div>
+  <!-- Contenido del restaurante -->
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <h1 class="card-title">Tu restaurante: {{ userRestaurant.name }}</h1>
+          <h1 class="card-text">Dirección: {{ userRestaurant.adress }}</h1>
         </div>
-      </div>
-    </div>
-  
-    <div class="row justify-content-center mt-4">
-      <div class="col-md-8">
-        <div class="card">
-          <div class="card-body">
-            <form [formGroup]="categoryForm" (submit)="onSubmit()">
-              <div class="mb-3">
-                <label for="category">Nueva Categoría:</label>
-                <input type="text" class="form-control" id="category" formControlName="category" required>
-              </div>
-              <button type="submit" mat-raised-button color="primary">Crear Categoria</button>
-            </form>
+        <div class="col-md-8">
+          <div class="card" style="margin-left: 1em; margin-bottom: 1em;">
+            <div class="card-body">
+              <form [formGroup]="categoryForm" (submit)="onSubmitQuitCategories()">
+                <!-- Mostrar categorías como checkboxes -->
+                <div class="mb-3">
+                  <label>Tus categorías:</label>
+                  <div *ngFor="let category of userRestaurant.categories">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" [id]="category" [value]="category" (change)="onSelectCategoryQuit(category)">
+                      <label class="form-check-label" [for]="category">{{ category }}</label>
+                    </div>
+                  </div>
+                </div>
+                <button type="submit" mat-raised-button color="warn" [disabled]="userRestaurant.categories.length === 0">Quitar Categorías</button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
+
+  <div class="row justify-content-center mt-4">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <form [formGroup]="categoryForm" (submit)="onSubmit()">
+            <!-- Mostrar categorías como checkboxes -->
+            <div class="mb-3">
+              <label>Categorías disponibles:</label>
+              <div class="form-check" *ngFor="let category of availableCategories">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" [id]="category" [value]="category" (change)="onSelectCategory(category)">
+                  <label class="form-check-label" [for]="category">{{ category }}</label>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" mat-raised-button color="primary" [disabled]="availableCategories.length === 0">Asociar Categorías</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

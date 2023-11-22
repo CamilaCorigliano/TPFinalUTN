@@ -12,13 +12,13 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  createCategory(restaurantId: string, category: string | null | undefined): Observable<any> {
+  createCategory(restaurantId: string, selectedCategories: string[]): Observable<any> {
     const data = {
       restaurant_id: restaurantId,
-      categorie: category
+      categories: selectedCategories
     };
 
-    return this.http.post<any>(`${this.apiUrl}/create/categorie`, data);
+    return this.http.post<any>(`${this.apiUrl}/categories/add`, data);
   }
 
 }
