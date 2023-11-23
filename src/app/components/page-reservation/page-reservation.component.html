@@ -14,8 +14,9 @@
                   <mat-hint>MM/DD/YYYY</mat-hint>
                   <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
+                  <small *ngIf="invalidDate" style="color: crimson;">La fecha ingresada es invalida</small>
                 </mat-form-field>
-  
+                
                 <!-- Sección de Hora -->
                 <div class="mb-3">
                   <!-- Comentario: Dropdown para elegir entre Mediodía y Noche -->
