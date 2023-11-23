@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators,AbstractControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ReservationService } from 'src/app/services/reservation.service/reservation.service';
 import { Router } from '@angular/router';
@@ -14,7 +14,7 @@ export class PageReservationComponent {
    reservation?: any;
 
   reservationForm = new FormGroup({
-    date: new FormControl('', Validators.required),
+    date: new FormControl('',[Validators.required,this.dateNotPastValidator]),
     res_size: new FormControl('',Validators.required),
     comment: new FormControl(''),
     time: new FormControl('',Validators.required),
@@ -64,6 +64,19 @@ export class PageReservationComponent {
     }
   }
   
+  get invalidDate() {
+    return this.reservationForm.get('date')?.invalid && this.reservationForm.get('date')?.touched;
+  }
 
+  dateNotPastValidator(control: AbstractControl): { [key: string]: boolean } | null {
+      const selectedDate = new Date(control.value);
+      const currentDate = new Date();
+
+      if (selectedDate < currentDate) {
+        return { dateNotPast: true };
+      }
+
+      return null;
+    }
   
 }
