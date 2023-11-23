@@ -1,0 +1,75 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">Reserva</div>
+          <div class="card-body">
+            <form [formGroup]="reservationForm" (submit)="onSubmit()">
+              <div class="mb-3">
+                <!-- Sección de Fecha -->
+                <label for="date" class="form-label">Fecha</label>
+                <mat-form-field class="mb-3">
+                  <mat-label>Elige la fecha</mat-label>
+                  <input matInput [matDatepicker]="picker" formControlName="date">
+                  <mat-hint>MM/DD/YYYY</mat-hint>
+                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                  <small *ngIf="invalidDate" style="color: crimson;">La fecha ingresada es invalida</small>
+                </mat-form-field>
+                
+                <!-- Sección de Hora -->
+                <div class="mb-3">
+                  <!-- Comentario: Dropdown para elegir entre Mediodía y Noche -->
+                  <label for="time">Hora</label>
+                  <mat-form-field class="mb-3">
+                    <mat-label>Selecciona</mat-label>
+                    <mat-select formControlName="time">
+                      <mat-option value="12">12:00</mat-option>
+                      <mat-option value="14">14:00</mat-option>
+                      <mat-option value="20">20:00</mat-option>
+                      <mat-option value="22">22:00</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+  
+                <!-- Sección de Cantidad de Personas -->
+                <div class="mb-3">
+                  <!-- Comentario: Dropdown para seleccionar la cantidad de personas -->
+                  <label for="size">Cantidad de Personas</label>
+                  <mat-form-field class="mb-3">
+                    <mat-label>Selecciona</mat-label>
+                    <mat-select formControlName="res_size">
+                      <mat-option value="1">1</mat-option>
+                      <mat-option value="2">2</mat-option>
+                      <mat-option value="3">3</mat-option>
+                      <mat-option value="4">4</mat-option>
+                      <mat-option value="5">5</mat-option>
+                      <mat-option value="6">6</mat-option>
+                      <mat-option value="7">7</mat-option>
+                      <mat-option value="8">8</mat-option>
+                      <mat-option value="9">9</mat-option>
+                      <mat-option value="10">10</mat-option>
+                      <mat-option value="11">10+</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <br>
+                  <h4 *ngIf="reservationForm.controls.res_size.value=='11'" style="color: rgb(91, 91, 91);">*Por favor especifique la cantidad en los comentarios*</h4>
+                </div>
+                <div class="mb-3">
+                  <label for="comment">Comentario</label>
+                  <div class="mb-5">
+                    <mat-form-field class="mb-3">
+                        <mat-label>Comentario</mat-label>
+                        <textarea matInput formControlName="comment" rows="3"></textarea>
+                      </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" mat-raised-button color="primary">Crear Reserva</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

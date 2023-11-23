@@ -1,0 +1,47 @@
+<div class="container mt-5">
+    <div class="row">
+      <div class="col-md-12">
+        <div  class="col-md-8" style="background-color: #f0f0f0; border-radius: 10px;">
+          <h2>Reservas</h2>
+          <div class="form-check">
+            <div class="form-check-inline" style="margin-right: 25px;">
+              <input class="form-check-input" [formControl]="filterform" type="radio" name="status" value="confirmed"(change)="onChange()">
+              <label class="form-check-label">Confirmadas</label>
+            </div>
+            <div class="form-check-inline" style="margin-right: 25px;">
+              <input class="form-check-input" [formControl]="filterform" type="radio" name="status" value="toConfirm" (change)="onChange()">
+              <label class="form-check-label">A Confirmar</label>
+            </div>
+            <div class="form-check-inline" style="margin-right: 25px;">
+              <input class="form-check-input" [formControl]="filterform" type="radio" name="status" value="cancelled" (change)="onChange()">
+              <label class="form-check-label">Canceladas</label>
+            </div>
+            <div class="form-check-inline" style="margin-right: 25px;">
+              <input class="form-check-input" [formControl]="filterform" type="radio" name="status" value="all" (change)="onChange()">
+              <label class="form-check-label">Todos</label>
+            </div>
+          </div>
+          <ul class="list-group" *ngIf="reservations; else noReservations">
+            <li *ngFor="let reservation of filteredReservations" class="list-group-item custom-list-item d-flex justify-content-between align-items-center position-relative">
+              <div>
+                <p>Fecha y Hora: {{ reservation.due_date | date: 'dd/MM/yyyy HH:mm' }}</p>
+                <p>Tamaño de la reserva: {{ reservation.res_size }}</p>
+                <p *ngIf="reservation.state === 'toConfirm'" style="background-color: rgb(255, 238, 0);">A confirmar</p>
+                <p *ngIf="reservation.state === 'confirmed'" style="background-color: green;">Confirmada</p>
+                <p *ngIf="reservation.state === 'cancelled'" style="background-color: rgb(241, 15, 15);">cancelada</p>
+              <button class="btn btn-primary custom-btn custom-btn-ver" [routerLink]="['/view-reservation', reservation.id]">Ver Detalles</button> 
+              <div class="col-md-8">
+                <br>
+                    <button class="btn btn-primary custom-btn custom-btn-ver" [routerLink]="['/confirm-reservation', reservation.id]" *ngIf="reservation.state === 'toConfirm'">confirmar</button> 
+                    <button class="btn btn-danger custom-btn custom-btn-ver" (click)="cancelReservation(reservation.id)"  *ngIf="reservation.state === 'toConfirm' || reservation.state === 'confirmed'">cancelar</button> 
+                </div>   
+              </div>
+            </li>
+          </ul>
+          <ng-template #noReservations>
+            <p>No hay reservas disponibles.</p>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>

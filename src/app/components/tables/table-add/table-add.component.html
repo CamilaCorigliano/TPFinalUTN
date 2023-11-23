@@ -1,0 +1,66 @@
+<div class="container mt-5" *ngIf="restaurant">
+  <div class="row">
+    <!-- Contenido del restaurante a la izquierda -->
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h1 class="card-title">{{ userRestaurant.name }}</h1>
+          <p class="card-text">{{ userRestaurant.adress }}</p>
+        </div>
+      </div>
+
+      <!-- Formulario para agregar mesas -->
+      <div class="card mt-4">
+        <div class="card-body">
+          <form [formGroup]="tableForm" (submit)="onSubmit()">
+            <div class="mb-3">
+              <label for="table">Nro Mesa:</label>
+              <input type="number" class="form-control" id="category" formControlName="number" required>
+            </div>
+            <div class="mb-3">
+              <label for="size">Capacidad:</label>
+              <mat-form-field class="mb-3">
+                <mat-label>Selecciona</mat-label>
+                <mat-select formControlName="capacity">
+                  <mat-option value="1">1</mat-option>
+                  <mat-option value="2">2</mat-option>
+                  <mat-option value="3">3</mat-option>
+                  <mat-option value="4">4</mat-option>
+                  <mat-option value="5">5</mat-option>
+                  <mat-option value="6">6</mat-option>
+                  <mat-option value="7">7</mat-option>
+                  <mat-option value="8">8</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <button type="submit" mat-raised-button color="primary">Crear Mesa</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contenedor de mesas a la derecha -->
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h3>Mesas</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Nro Mesa</th>
+                <th>Capacidad</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Utiliza *ngFor para iterar sobre las mesas -->
+              <tr *ngFor="let table of tables">
+                <td>{{ table.number }}</td>
+                <td>{{ table.capacity }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

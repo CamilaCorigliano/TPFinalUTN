@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { userService } from 'src/app/services/api.service/userService';
 import { AuthService } from 'src/app/services/auth.service/auth.service';
 
 @Component({
@@ -11,37 +12,67 @@ import { AuthService } from 'src/app/services/auth.service/auth.service';
 })
 export class PageLoginComponent {
   loginForm = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl('')
+    email: new FormControl('', [Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$'), Validators.required]),
+    password: new FormControl('', Validators.minLength(6))
   });
-  
-  constructor(private router: Router, public authService: AuthService, private fb: FormBuilder) { }
+
+  private user!: User;
+  errordiv = "";
+  errordiv2 = "";
+
+  constructor(private router: Router, public authService: AuthService, private apiservice: userService, private fb: FormBuilder) { 
+    
+  }
 
   ngOnInit() {
   }
-  
 
-  onSubmit() {
-
-    let user = new User();
-    user.userName = this.loginForm.get('username')?.value!;
-    user.password = this.loginForm.get('password')?.value!;
-    console.log('Usuario:', user.userName);
-    console.log('Contraseña:', user.password);
-    // Puedes agregar aquí la lógica para autenticar al usuario
-    //te dirige a una pagina por medio de la ruta
-    this.authService.login();
-    this.router.navigate(['/list-restaurants']);
+  get invalidEmail() {
+    return this.loginForm.get('email')?.invalid && this.loginForm.get('email')?.touched;
   }
 
+  get invalidPassword() {
+    return this.loginForm.get('password')?.invalid && this.loginForm.get('password')?.touched;
+  }
 
-  studentForm = new FormGroup({
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
-    dni: new FormControl(''),
-    email: new FormControl(''),
-    address: new FormControl('')
-  });
-   
+  onSubmit() {
+    const email = this.loginForm.get('email')?.value!;
+    const password = this.loginForm.get('password')?.value!;
   
+    this.apiservice.getUsersEmail(email, password).subscribe(
+      (data: any) => {
+        if (data.message === "Login successful") {
+          this.user = new User(data.user); // Crear una nueva instancia de User con los datos del servicio
+          this.apiservice.getFavorites(this.user._id).subscribe(
+            data=>{
+             this.user._favourites = data;
+             this.apiservice.user = this.user;
+             this.apiservice.setFavorites(this.apiservice.favourites);
+            },
+            error =>{
+              console.log(error);
+              
+            }
+          )
+         
+          this.authService.login();
+          if (this.user._role === 'client') { 
+            this.router.navigate(['/list-restaurants']);
+          } else {
+            this.router.navigate(['/menu-admin']);
+          }
+        } else {
+          if (data.message === 500) {
+            this.errordiv2 = "El email no está registrado";
+          } else {
+            this.errordiv = "Contraseña incorrecta";
+          }
+        }
+      },
+      (error) => {
+        console.error('Error al intentar iniciar sesión:', error);
+      }
+    );
+  }
 }
+

@@ -1,0 +1,35 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">Agregar nuevo restaurant</div>
+          <div class="card-body">
+            <form [formGroup]="addRestaurantForm" (submit)="onSubmit()">
+              <div class="mb-3">
+
+                <div class="mb-3">
+                  <label for="name">Nombre del restaurant:</label>
+                  <div class="mb-5">
+                    <mat-form-field class="mb-3">
+                        <input matInput formControlName="name" type="text">
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="name">Dirección:</label>
+                    <div class="mb-5">
+                      <mat-form-field class="mb-3">
+                          <input matInput formControlName="adress" type="text">
+                      </mat-form-field>
+                    </div>
+                  </div>
+              </div>
+              <button type="submit" mat-raised-button color="primary">Crear Restaurant</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

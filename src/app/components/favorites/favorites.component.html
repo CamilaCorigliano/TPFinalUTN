@@ -1,0 +1,18 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="text-center p-4" style="background-color: #f0f0f0; border-radius: 10px;">
+                <ul class="list-group">
+                    <div *ngIf="checkfavorites()">No Hay Ningun Favorito Para Mostrar <br><button type="button" class="btn btn-secondary btn-sm" [routerLink]="['/list-restaurants']">Volver al inicio</button></div>
+                    <li class="list-group-item custom-list-item d-flex justify-content-between align-items-center position-relative" *ngFor="let restaurant of favorites">
+                        <div>
+                            <span>{{ restaurant.name }} - {{ restaurant.address }}</span>
+                        </div>
+                        <button class="btn btn-primary custom-btn custom-btn-ver" [routerLink]="['/view-restaurant', restaurant.restaurant_id]">Ver</button>
+                        <button class="btn btn-danger btn" (click)="deleteFromFavorites(restaurant.restaurant_id)"> Quitar </button>
+                    </li>
+                </ul> 
+            </div>
+        </div>
+    </div>
+</div>

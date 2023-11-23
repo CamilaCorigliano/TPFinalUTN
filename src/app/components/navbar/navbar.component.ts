@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service/auth.service';
+import { userService } from 'src/app/services/api.service/userService';
 
 @Component({
   selector: 'app-navbar',
@@ -7,10 +8,18 @@ import { AuthService } from 'src/app/services/auth.service/auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+  
+  isLogged!:boolean;
+  constructor(public authService: AuthService, public userService: userService) { 
+    
+  }
 
-  constructor(public authService: AuthService) { }
+  ngOnInit(){
+    this.isLogged=this.authService.isLoggedIn();
+  }
 
   checkLoginStatus() {
+   
     const isLoggedIn = this.authService.isLoggedIn();
   
     if (isLoggedIn) {
@@ -18,6 +27,13 @@ export class NavbarComponent {
     } else {
       console.log('El usuario no está autenticado.');
     }
+
+    console.log(this.userService);
   }
+  
+  logout(){
+    this.authService.logout();
+  }
+
 }
 
