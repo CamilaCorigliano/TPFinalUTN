@@ -12,7 +12,7 @@
                 <h2 class="card-title">{{ restaurant.name }}</h2>
                 <p class="card-text">{{ restaurant.adress }}</p>
                 <div>
-                  <span *ngFor="let star of getStars(3)" class="star-yellow">
+                  <span *ngFor="let star of getStars(getRestaurantRanting(restaurant.name))" class="star-yellow">
                     <i class="fa fa-star" style="font-size: 18px;" *ngIf="star === 1"></i>
                     <i class="fa fa-star-half" style="font-size: 18px;" *ngIf="star === 0.5"></i>
                   </span>
