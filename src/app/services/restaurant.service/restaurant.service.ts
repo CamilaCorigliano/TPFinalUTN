@@ -11,6 +11,7 @@ export class RestaurantService {
   private apiUrl = `http://3.21.41.36:3000/restaurants`;
   private originalRestaurants: any[] = [];
   restaurants: any[] = [];
+  private restaurantsSubject = new Subject<any[]>();
 
   constructor(private http: HttpClient) { }
 
@@ -32,7 +33,7 @@ export class RestaurantService {
     this.restaurantsSubject.next(this.restaurants);
   }
 
-  private restaurantsSubject = new Subject<any[]>();
+  
 
   getRestaurantsObservable(): Observable<any[]> {
     return this.restaurantsSubject.asObservable();
@@ -65,7 +66,7 @@ export class RestaurantService {
     const lastSelectedCategory = selectedCategories[selectedCategories.length - 1] || '';
   
     // Verificar si hay al menos un restaurante con la última categoría seleccionada
-    const hasRestaurantWithLastCategory = this.originalRestaurants.some(restaurant =>
+    const hasRestaurantWithLastCategory = this.restaurants.some(restaurant =>
       this.hasCategory(restaurant, lastSelectedCategory)
     );
   
@@ -76,9 +77,9 @@ export class RestaurantService {
   
     const filteredRestaurants = this.originalRestaurants.filter(restaurant =>
       this.matchesSearchTerm(restaurant, searchTerm) &&
-      this.hasAnySelectedCategory(restaurant, selectedCategories)
+      (selectedCategories.length === 0 || selectedCategories.every(category => this.hasCategory(restaurant, category)))
     );
-  
+    
     if (filteredRestaurants.length > 0) {
       this.restaurants = filteredRestaurants;
       this.restaurantsSubject.next(this.restaurants);
@@ -89,9 +90,6 @@ export class RestaurantService {
     }
   }
   
-  
-  
-
   private hasCategory(restaurant: any, category: string): boolean {
 
     return restaurant.categories.includes(category);
