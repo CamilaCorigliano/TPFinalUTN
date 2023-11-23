@@ -21,4 +21,13 @@ export class CategoryService {
     return this.http.post<any>(`${this.apiUrl}/categories/add`, data);
   }
 
+  deleteCategories(restaurantId: string, selectedCategories: string[]): Observable<any> {
+    const data = {
+      restaurant_id: restaurantId,
+      categories: selectedCategories
+    };
+
+    return this.http.post<any>(`${this.apiUrl}/categories/delete`, data);
+  }
+
 }

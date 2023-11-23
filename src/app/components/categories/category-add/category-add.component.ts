@@ -71,9 +71,20 @@ export class CategoryAddComponent {
   }
 
   onSubmitQuitCategories() {
-    console.log("CAT DEL RESTAURANT SELECCIONADAS", this.selectedCategoriesUser);
-    this.userRestaurant.categories = this.userRestaurant.categories.filter((category: string) => !this.selectedCategoriesUser.includes(category));
-    this.availableCategories = [...this.availableCategories, ...this.selectedCategoriesUser];
+    if (this.userRestaurant) {
+      this.categoryService.deleteCategories(this.userRestaurant.id, this.selectedCategoriesUser)
+        .subscribe(
+          response => {
+            this.userRestaurant.categories = this.userRestaurant.categories.filter((category: string) => !this.selectedCategoriesUser.includes(category));
+            this.availableCategories = [...this.availableCategories, ...this.selectedCategoriesUser];
+            this.selectedCategoriesUser = [];
+          },
+          error => {
+            console.error('Error al eliminar la categoría:', error);
+          }
+        );
+    }
+
   }
 
   onSelectCategory(category: string) {
