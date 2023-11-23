@@ -47,8 +47,13 @@
                       <mat-option value="6">6</mat-option>
                       <mat-option value="7">7</mat-option>
                       <mat-option value="8">8</mat-option>
+                      <mat-option value="9">9</mat-option>
+                      <mat-option value="10">10</mat-option>
+                      <mat-option value="11">10+</mat-option>
                     </mat-select>
                   </mat-form-field>
+                  <br>
+                  <h4 *ngIf="reservationForm.controls.res_size.value=='11'" style="color: rgb(91, 91, 91);">*Por favor especifique la cantidad en los comentarios*</h4>
                 </div>
                 <div class="mb-3">
                   <label for="comment">Comentario</label>
