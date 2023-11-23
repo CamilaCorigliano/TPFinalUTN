@@ -8,8 +8,9 @@
             <div>
               <p>Fecha y Hora: {{ reservation.due_date | date: 'dd/MM/yyyy HH:mm' }}</p>
               <p>Tamaño de la reserva: {{ reservation.res_size }}</p>
-              <p *ngIf="reservation.state === 'toConfirm'" style="background-color: red;">A confirmar</p>
+              <p *ngIf="reservation.state === 'toConfirm'" style="background-color: rgb(255, 238, 0);">A confirmar</p>
               <p *ngIf="reservation.state === 'confirmed'" style="background-color: green;">Confirmada</p>
+              <p *ngIf="reservation.state === 'cancelled'" style="background-color: rgb(241, 15, 15);">cancelada</p>
               <div class="container mt-5">
                 <ng-container *ngIf="restaurants">
                   <ng-container *ngFor="let restaurant of restaurants">
@@ -21,7 +22,12 @@
                 </ng-container>
               </div>
             </div>
+            <div>
             <button class="btn btn-primary custom-btn custom-btn-ver" [routerLink]="['/view-reservation', reservation.id]">Ver Detalles</button>
+            <br>
+            <br>
+            <button class="btn btn-danger custom-btn custom-btn-ver" (click)="cancelReservation(reservation.id)"  *ngIf="reservation.state === 'toConfirm' || reservation.state === 'confirmed'">cancelar</button>
+          </div>
           </li>
         </ul>
         <ng-template #noReservations>

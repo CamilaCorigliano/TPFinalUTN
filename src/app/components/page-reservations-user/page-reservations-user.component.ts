@@ -54,6 +54,26 @@ export class PageReservationsUserComponent implements OnInit {
       }
     );
   }
+  cancelReservation(reservation_id: string){
+    this.reservationService.cancelReservation(reservation_id).subscribe(
+      data => {
+        console.log(data);
+       this.reservationService.getByUser(this.userService.user._id).subscribe(
+        data => {
+          this.reservations = data;
+        },
+        error => {
+          console.log(error);
+          
+        }
+       )
+        
+      },
+      error=> {
+        console.log(error);
+      }
+    )
+  }
   
   
 }
