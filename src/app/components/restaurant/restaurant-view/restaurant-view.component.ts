@@ -48,6 +48,10 @@ export class RestaurantViewComponent {
       case 'La Corona':
         return `assets/images/lacorona.jpeg`;
 
+      case 'el crustaceo cascarudo':
+        return 'assets/images/crustaceo.jpg'
+
+
       default:
         return `assets/images/logo.jpeg`;
     }
@@ -77,6 +81,10 @@ export class RestaurantViewComponent {
         return ['Lunes de 07:00 am a 02:00 am', 'Martes de 07:00 am a 02:00 am', 'Miercoles de 07:00 am a 02:00 am', 'Jueves de 07:00 am a 02:00 am',
           'Viernes de 07:00 am a 02:00 am', 'Sábado de 07:00 am a 02:00 am', 'Domingo de 07:00 am a 02:00 am'];
 
+      case 'el crustaceo cascarudo':
+        return ['Lunes de 07:00 am a 02:00 am', 'Martes de 07:00 am a 02:00 am', 'Miercoles de 07:00 am a 02:00 am', 'Jueves de 07:00 am a 02:00 am',
+        'Viernes de 07:00 am a 02:00 am', 'Sábado de 07:00 am a 02:00 am', 'Domingo de 07:00 am a 02:00 am'];
+        
       default:
         return [];
     }
@@ -118,6 +126,8 @@ export class RestaurantViewComponent {
 
       case 'La Corona':
         return `assets/images/lacoronamapa.JPG`;
+      case 'el crustaceo cascarudo':
+        return 'assets/images/krabMap.jpg'
 
       default:
         return `assets/images/logo.jpeg`;
