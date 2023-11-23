@@ -64,6 +64,12 @@ export class PageReservationsAdminComponent implements OnInit {
         reser.state==="confirmed"
       );
     };
+    if(this.filterform.value==="cancelled"){
+      this.filteredReservations=[];     
+      this.filteredReservations=this.reservations.filter((reser:any)=>
+      reser.state==="cancelled"
+    );
+    };
     if(this.filterform.value==="all"){
       this.filteredReservations=[];     
       this.filteredReservations=this.reservations;
@@ -71,5 +77,24 @@ export class PageReservationsAdminComponent implements OnInit {
   }else{
     console.error("error obteniendo reservas");
   }
+  }
+  cancelReservation(reservation_id: string){
+    console.log('cancel');
+    
+    this.reservationService.cancelReservation(reservation_id).subscribe(
+      data => {
+        console.log(data);
+        this.reservationService.getReservationsByResto(this.restaurant_id).subscribe(
+          data => {
+            this.reservations = data;
+            this.filteredReservations= this.reservations
+          }
+        )
+        
+      },
+      error=> {
+        console.log(error);
+      }
+    )
   }
 }
