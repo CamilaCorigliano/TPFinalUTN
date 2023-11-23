@@ -16,18 +16,18 @@ export class TableAddComponent {
   restaurant! : any;
   tableForm: FormGroup;
   userRestaurant!: any;
+  tables:any[]=[];
 
   constructor(private restaurantService: RestaurantService, private tableService: TableService, private userService: userService) {
 
     this.tableForm = new FormGroup({
-      tableNumber: new FormControl('', Validators.required),
+      number: new FormControl('', Validators.required),
       capacity: new FormControl('', Validators.required) 
     });
 
   }
 
   ngOnInit(): void {
-    
     if (this.userService.user && this.restaurantService.restaurants) {
       this.userRestaurant = this.restaurantService.restaurants.find(
         (restaurant) => restaurant.manager_id === this.userService.user._id
@@ -41,23 +41,35 @@ export class TableAddComponent {
           console.error(error);
         }
       );
-
+    
+    this.tableService.getTables(this.userRestaurant.id).subscribe(
+      data=>{
+      this.tables=data;
+    },
+      error=>{
+        console.error(error);
+      }
+    );
   }
 
   onSubmit() {
 
-    const { tableNumber, capacity } = this.tableForm.value;
+    const { number, capacity } = this.tableForm.value;
 
-    this.tableService.createTable(this.userRestaurant.id, tableNumber, capacity)
+    this.tableService.createTable(this.userRestaurant.id, number, capacity)
         .subscribe(
           response =>  {
             alert('La mesa se ha creado exitosamente');
             this.tableForm.reset()
+            let table={number:number,capacity:capacity};
+            this.tables.push(table);
           },
           error => console.error('Error de la API:', error)
         );
-
+    
   }
+
+
 
 }
 
