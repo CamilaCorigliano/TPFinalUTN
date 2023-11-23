@@ -113,4 +113,27 @@ export class RestaurantListComponent  {
   addFav(userId: string, restaurantId: string){
     this.apiService.addFavorite(userId, restaurantId);
   }
+
+  getRestaurantRanting(restaurantName: string): number {
+    switch (restaurantName) {
+      case 'Manolo Centro ':
+        return 4.5;
+
+      case 'Banderita Parrilla':
+        return 4.5;
+
+      case 'Pacifico':
+        return 4.5;
+
+      case 'Mostaza Costa':
+        return 4.0;
+      
+      case 'La Corona':
+        return 3.0;
+
+      default:
+        return 5.0;
+    }
+    
+  }
 }

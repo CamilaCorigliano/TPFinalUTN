@@ -60,6 +60,7 @@ export class CategoryAddComponent {
             this.categoryForm.reset();
             this.userRestaurant.categories = [...this.userRestaurant.categories, ...this.selectedCategories];
             this.availableCategories = this.availableCategories.filter(category => !this.selectedCategories.includes(category));
+            this.selectedCategories = [];
           },
           error => {
             console.error('Error al crear la categoría:', error);
