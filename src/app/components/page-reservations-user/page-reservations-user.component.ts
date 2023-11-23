@@ -64,7 +64,6 @@ export class PageReservationsUserComponent implements OnInit {
         },
         error => {
           console.log(error);
-          
         }
        )
         
